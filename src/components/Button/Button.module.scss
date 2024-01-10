@@ -1,0 +1,21 @@
+.button {
+    width: fit-content;
+    height: 45px;
+    border-radius: 10px;
+    background-color: aqua;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.header_button {
+    background-color: #AD1FEA;
+    color: #fff;
+    min-width: 160px;
+}
+
+.subject_button {
+    background-color: #F2F2F2;
+}

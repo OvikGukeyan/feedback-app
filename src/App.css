@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Jost';
+  src: url(../public/Jost/Jost-VariableFont_wght.ttf);
+}
+
+* {
+  font-family: 'Jost';
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: #3A4374;
+}
+
+.App {
+  max-width: 1110px;
+  margin: 30px auto;
+}
