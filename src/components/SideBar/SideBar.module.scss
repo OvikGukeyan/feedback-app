@@ -1,0 +1,89 @@
+.side_bar {
+    width: 23%;
+    margin-right: 2%;
+
+    .board {
+        width: 100%;
+        background-image: url(../../../public/assets/suggestions/desktop/background-header.png);
+        background-size: cover;
+        border-radius: 10px;
+        padding: 25px;
+        
+
+
+        &:before {
+            content: "";
+            padding-top: 18%;
+            display: block;
+            
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: 500;
+            color: #fff;
+            opacity: 0.5;
+        }
+    }
+
+
+    .subjects, .roadmap {
+        padding: 25px;
+        background-color: #fff;
+        margin-top: 20px;
+        border-radius: 10px;
+        display: flex;
+    }
+
+    .subjects {
+        flex-wrap: wrap;
+        div {
+            margin: 0 10px 10px 0;
+        }
+    }
+
+    .roadmap {
+        flex-direction: column;
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+
+            h2 {
+                font-size: 18px;
+                font-weight: 700;
+            }
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                p {
+                    width: 100%;
+                    margin-left: 15px;
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+
+                span {
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+            }
+        }
+
+    }
+}

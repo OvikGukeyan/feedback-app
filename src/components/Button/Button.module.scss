@@ -1,8 +1,6 @@
 .button {
     width: fit-content;
-    height: 45px;
     border-radius: 10px;
-    background-color: aqua;
     padding: 0 15px;
     display: flex;
     align-items: center;
@@ -10,12 +8,59 @@
     cursor: pointer;
 }
 
-.header_button {
+.add_button {
     background-color: #AD1FEA;
     color: #fff;
     min-width: 160px;
+    font-size: 14px;
+    font-weight: 700;
+    height: 45px;
+
+    &:hover {
+        background-color: #C75AF6;
+    }
+
 }
 
 .subject_button {
     background-color: #F2F2F2;
+    color: #4661E6;
+    font-size: 13px;
+    font-weight: 600;
+    height: 30px;
+
+    &:hover {
+        background-color: #CFD7FF;
+    }
+}
+
+.view_roadmap {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4661E6;
+
+    &:hover {
+        color: #8397F8;
+    }
+}
+
+.upvotes {
+    margin-right: 30px;
+    background-color: #F2F2F2;
+    font-size: 13px;
+    font-weight: 600;
+    height: 53px;
+    display: flex;
+    flex-direction: column;
+
+    &::before {
+        content: url(../../../public/assets/shared/icon-arrow-up.svg);
+    }
+
+    &:hover {
+        background-color: #CFD7FF;
+    }
 }
