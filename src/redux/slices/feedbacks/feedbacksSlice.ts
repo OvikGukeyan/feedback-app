@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { RootState } from "../../store";
 
 export const fetchFeedbacks = createAsyncThunk('feedbacks/fetchFeedbacks', async () => {
     const { data } = await axios.get('https://64fa17ff4098a7f2fc156145.mockapi.io/feedbacks');
@@ -29,7 +30,7 @@ type Reply = {
     user: User;
 };
 
-type FeedbackItem = {
+export type FeedbackItem = {
     id: number;
     title: string;
     category: string;
@@ -77,4 +78,5 @@ const feedbacksSlice = createSlice({
     }
 });
 
+export const selectFeedbacks = (state: RootState) => state.feedbacks
 export default feedbacksSlice.reducer;
