@@ -1,0 +1,87 @@
+.sort {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-left: 40px;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+
+        p {
+            opacity: 0.6;
+        }
+    }
+
+
+
+    p {
+        font-size: 14px;
+        font-weight: 400;
+        color: #fff;
+
+        span {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+
+        }
+
+        svg {
+            margin-left: 5px;
+            margin-top: 3px;
+        }
+    }
+
+    
+
+
+
+    .sortPopUp {
+        width: 255px;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 1px 2px 5px #979797;
+
+        ul {
+            margin: 0;
+            padding: 0;
+
+            li {
+                list-style-type: none;
+                height: 50px;
+                border-bottom: 1px solid #d0d0d1;
+                padding: 0 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: #647196;
+                cursor: pointer;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                &:hover {
+                    color: #AD1FEA;
+
+                    &:after {
+                        display: block;
+                    }
+                }
+
+                &::after {
+                    content: url(../../../public/assets/shared/icon-check.svg);
+                    display: none;
+                }
+            }
+        }
+    }
+
+
+}

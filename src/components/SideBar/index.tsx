@@ -5,7 +5,8 @@ import Button from '../Button';
 type SideBarTypes = {
     statuses: {
         name: string,
-        count: number
+        count: number,
+        color: string
     }[]
 }
 
@@ -32,7 +33,7 @@ const SideBar: React.FC<SideBarTypes> = ({statuses}) => {
                     statuses.map((status) => (
                         <li>
                         <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="4" cy="4" r="4" fill="#F49F85" />
+                            <circle cx="4" cy="4" r="4" fill={status.color} />
                         </svg>
                         <p>{status.name}</p>
                         <span>{status.count}</span>

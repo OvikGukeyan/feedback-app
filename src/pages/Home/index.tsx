@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styles from './Home.module.scss'
-import { Button, Item, SideBar } from '../../components';
+import { Button, Item, SideBar, SortPopUp } from '../../components';
 import { useAppDispatch } from '../../redux/store';
 import { fetchFeedbacks, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useSelector } from 'react-redux';
@@ -8,9 +8,9 @@ import { useSelector } from 'react-redux';
 const Home: React.FC = () => {
   const { feedbacks } = useSelector(selectFeedbacks);
   const statuses = [
-    { name: 'Planed', count: feedbacks.filter((item) => item.status === 'planned').length },
-    { name: 'In Progress', count: feedbacks.filter((item) => item.status === 'in-progress').length },
-    { name: 'Live', count: feedbacks.filter((item) => item.status === 'live').length }
+    { name: 'Planed', count: feedbacks.filter((item) => item.status === 'planned').length, color: '#F49F85' },
+    { name: 'In Progress', count: feedbacks.filter((item) => item.status === 'in-progress').length, color: '#AD1FEA' },
+    { name: 'Live', count: feedbacks.filter((item) => item.status === 'live').length, color: '#62BCFA' }
   ];
   const suggestion = feedbacks.filter(item => item.status === 'suggestion')
 
@@ -28,10 +28,8 @@ const Home: React.FC = () => {
             <img src="./assets/suggestions/icon-suggestions.svg" alt="" />
             <span> {suggestion.length} Suggestions</span>
           </div>
-          <div className={styles.sort}>
-            <p>Sort by: <span>Most Upwotes</span></p>
-            <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="2" fill="none" fill-rule="evenodd" /></svg>
-          </div>
+
+          <SortPopUp />
           <Button className='add_button'>+ Add Feedback</Button>
         </header>
         {suggestion ?
