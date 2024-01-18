@@ -64,3 +64,30 @@
         background-color: #CFD7FF;
     }
 }
+
+.go_back {
+    font-size: 14px;
+    font-weight: 700;
+    color: #647196;
+
+    &:hover {
+        text-decoration: underline;
+    }
+    &::before {
+        margin-right: 8px;
+        content: url(../../../public/assets/shared/icon-arrow-left.svg);
+    }
+}
+
+.edit {
+    background-color: #4661E6;
+    color: #fff;
+    min-width: 160px;
+    font-size: 14px;
+    font-weight: 700;
+    height: 45px;
+
+    &:hover {
+        background-color: #7C91F9;
+    }
+}

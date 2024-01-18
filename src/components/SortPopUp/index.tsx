@@ -8,8 +8,8 @@ const SortPopUp: React.FC = () => {
     const sortList = [
         { name: 'Most Upvotes', type: 'upvotes', order: 'desc' },
         { name: 'Least Upvotes', type: 'upvotes', order: 'asc' },
-        { name: 'Most Comments', type: 'coments', order: 'desc' },
-        { name: 'Least Comments', type: 'coments', order: 'asc' },
+        { name: 'Most Comments', type: 'comments', order: 'desc' },
+        { name: 'Least Comments', type: 'comments', order: 'asc' },
     ];
 
     const handleOutsideClick = (e: MouseEvent) => {
