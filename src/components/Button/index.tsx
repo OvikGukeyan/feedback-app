@@ -4,11 +4,12 @@ import styles from './Button.module.scss';
 type ButtonType = {
   children: any
   className: string
+  onClick?: ()=>void
 }
 
-const Button: React.FC<ButtonType> = ({ children, className }) => {
+const Button: React.FC<ButtonType> = ({ children, className, onClick }) => {
   return (
-    <div className={`${styles.button} ${styles[className]}`}>
+    <div onClick={onClick} className={`${styles.button} ${styles[className]}`}>
       {children}
     </div>
   )

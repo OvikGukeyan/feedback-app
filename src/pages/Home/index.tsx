@@ -23,9 +23,10 @@ const Home: React.FC = () => {
     dispatch(fetchFeedbacks())
   }, []);
 
-  const handleFeedbackCliick = (id : number) => {
+  const handleFeedbackCliick = (id: number) => {
     dispatch(setCurentFeedbackId(id));
-    navigate('/detail')
+    navigate('/detail');
+    window.scroll(0, 0)
   };
 
   return (

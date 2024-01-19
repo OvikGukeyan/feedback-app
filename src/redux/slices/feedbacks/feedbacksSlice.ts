@@ -5,7 +5,9 @@ import { RootState } from "../../store";
 export const fetchFeedbacks = createAsyncThunk('feedbacks/fetchFeedbacks', async () => {
     const { data } = await axios.get('https://64fa17ff4098a7f2fc156145.mockapi.io/feedbacks');
     return data
-})
+});
+
+
 
 
 
