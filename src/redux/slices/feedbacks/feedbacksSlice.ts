@@ -17,7 +17,7 @@ type User = {
     username: string;
 };
 
-type Comment = {
+export type Comment = {
     id: number;
     content: string;
     user: User;

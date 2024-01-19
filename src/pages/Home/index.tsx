@@ -4,6 +4,8 @@ import { Button, Item, SideBar, SortPopUp } from '../../components';
 import { useAppDispatch } from '../../redux/store';
 import { fetchFeedbacks, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useSelector } from 'react-redux';
+import { setCurentFeedbackId } from '../../redux/slices/filters/filtersSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const { feedbacks } = useSelector(selectFeedbacks);
@@ -15,10 +17,17 @@ const Home: React.FC = () => {
   const suggestion = feedbacks.filter(item => item.status === 'suggestion')
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchFeedbacks())
-  }, [])
+  }, []);
+
+  const handleFeedbackCliick = (id : number) => {
+    dispatch(setCurentFeedbackId(id));
+    navigate('/detail')
+  };
+
   return (
     <div className={styles.home}>
       <SideBar statuses={statuses} />
@@ -35,7 +44,7 @@ const Home: React.FC = () => {
         {suggestion ?
           suggestion.map((item) => (
             <div className={styles.items}>
-              <Item item={item} />
+              <Item handleFeedbackCliick={handleFeedbackCliick} item={item} />
             </div>
           ))
           :

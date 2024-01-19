@@ -4,12 +4,13 @@ import Button from '../Button';
 import { FeedbackItem } from '../../redux/slices/feedbacks/feedbacksSlice';
 
 type ItemType = {
-    item: FeedbackItem
+    item: FeedbackItem,
+    handleFeedbackCliick?: (id:number)=>void
 }
 
-const Item: React.FC<ItemType> = ({item}) => {
+const Item: React.FC<ItemType> = ({item, handleFeedbackCliick}) => {
     return (
-        <div className={styles.item}>
+        <div onClick={()=>handleFeedbackCliick?.(item.id)} className={styles.item}>
 
             <Button className='upvotes'>{item.upvotes}</Button>
             <div className={styles.content}>
