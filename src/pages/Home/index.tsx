@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styles from './Home.module.scss'
-import { Button, Item, SideBar, SortPopUp } from '../../components';
+import { Button, Item, SideBar, PopUp } from '../../components';
 import { useAppDispatch } from '../../redux/store';
 import { fetchFeedbacks, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useSelector } from 'react-redux';
@@ -14,6 +14,16 @@ const Home: React.FC = () => {
     { name: 'In Progress', count: feedbacks.filter((item) => item.status === 'in-progress').length, color: '#AD1FEA' },
     { name: 'Live', count: feedbacks.filter((item) => item.status === 'live').length, color: '#62BCFA' }
   ];
+
+  const sortList = [
+    { name: 'Most Upvotes', type: 'upvotes', order: 'desc' },
+    { name: 'Least Upvotes', type: 'upvotes', order: 'asc' },
+    { name: 'Most Comments', type: 'comments', order: 'desc' },
+    { name: 'Least Comments', type: 'comments', order: 'asc' },
+  ];
+
+
+
   const suggestion = feedbacks.filter(item => item.status === 'suggestion')
 
   const dispatch = useAppDispatch();
@@ -39,7 +49,10 @@ const Home: React.FC = () => {
             <span> {suggestion.length} Suggestions</span>
           </div>
 
-          <SortPopUp />
+          <PopUp list={sortList} className='sort'>
+            <p className={styles.sort}>Sort by: <span>Most Upwotes</span>
+            </p>
+          </PopUp>
           <Button className='add_button'>+ Add Feedback</Button>
         </header>
         {suggestion ?
