@@ -92,3 +92,13 @@
         background-color: #7C91F9;
     }
 }
+
+.cancel {
+    background-color: #3A4374;
+    color: #fff;
+    width: 95px;
+
+    &:hover {
+        background-color: #656EA3;
+    }
+}

@@ -39,6 +39,10 @@ const Home: React.FC = () => {
     window.scroll(0, 0)
   };
 
+  const handleAddClick = () => {
+    navigate('/create')
+  }
+
   return (
     <div className={styles.home}>
       <SideBar statuses={statuses} />
@@ -53,7 +57,7 @@ const Home: React.FC = () => {
             <p className={styles.sort}>Sort by: <span>Most Upwotes</span>
             </p>
           </PopUp>
-          <Button className='add_button'>+ Add Feedback</Button>
+          <Button onClick={handleAddClick} className='add_button'>+ Add Feedback</Button>
         </header>
         {suggestion ?
           suggestion.map((item) => (
