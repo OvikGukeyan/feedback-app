@@ -102,3 +102,13 @@
         background-color: #656EA3;
     }
 }
+
+.delete {
+    background-color: #D73737;
+    color: #fff;
+    width: 95px;
+
+    &:hover {
+        background-color: #E98888;
+    }
+}

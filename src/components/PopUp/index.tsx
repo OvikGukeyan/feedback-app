@@ -9,8 +9,10 @@ type PopUpTypes = {
         type: string;
         order: string;
     }[] | {name: string}[]
+    handleChooseItem: (item: string)=>void
+    active:string
 }
-const PopUp: React.FC<PopUpTypes> = ({ children, className, list }) => {
+const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseItem, active }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const sortRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +46,7 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list }) => {
                 {visiblePopup && <div className={styles.pop_Up}>
                     <ul>
                         {list.map((item) => (
-                            <li>{item.name}</li>
+                            <li className={active === item.name ? styles.active : ''} onClick={()=>handleChooseItem(item.name)}>{item.name}</li>
                         ))}
                     </ul>
                 </div>}

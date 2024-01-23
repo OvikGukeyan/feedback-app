@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Home.module.scss'
 import { Button, Item, SideBar, PopUp } from '../../components';
 import { useAppDispatch } from '../../redux/store';
@@ -8,6 +8,7 @@ import { setCurentFeedbackId } from '../../redux/slices/filters/filtersSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
+  const [sortItem, setSortItem] = useState('Most Upvotes')
   const { feedbacks } = useSelector(selectFeedbacks);
   const statuses = [
     { name: 'Planed', count: feedbacks.filter((item) => item.status === 'planned').length, color: '#F49F85' },
@@ -41,6 +42,11 @@ const Home: React.FC = () => {
 
   const handleAddClick = () => {
     navigate('/create')
+  };
+
+  const handleChooseSort = (item: string) => {
+    const name = sortList.find((i) => i.name === item)?.name;
+    setSortItem(name ? name : 'Most Upvotes')
   }
 
   return (
@@ -53,8 +59,8 @@ const Home: React.FC = () => {
             <span> {suggestion.length} Suggestions</span>
           </div>
 
-          <PopUp list={sortList} className='sort'>
-            <p className={styles.sort}>Sort by: <span>Most Upwotes</span>
+          <PopUp active={sortItem} handleChooseItem={handleChooseSort} list={sortList} className='sort'>
+            <p className={styles.sort}>Sort by: <span>{sortItem}</span>
             </p>
           </PopUp>
           <Button onClick={handleAddClick} className='add_button'>+ Add Feedback</Button>

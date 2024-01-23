@@ -25,14 +25,18 @@ const FeedbackDetail: React.FC = () => {
 
     const handleClickBack = () => {
         navigate('/')
-    }
+    };
+
+    const handleClickEdit = () => {
+        navigate('/edit')
+    };
 
 
     return (
         <div className={styles.detail}>
             <div className={styles.head}>
                 <Button onClick={handleClickBack} className='go_back'>Go Back</Button>
-                <Button className='edit'>Edit Feedback</Button>
+                <Button onClick={handleClickEdit} className='edit'>Edit Feedback</Button>
             </div>
             {curentFeedback && <Item item={curentFeedback} />}
             <div className={styles.comments}>

@@ -74,6 +74,7 @@
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 1px 2px 5px #979797;
+    z-index: 2;
 
     ul {
         margin: 0;
@@ -96,15 +97,14 @@
 
             &:hover {
                 color: #AD1FEA;
-
-                &:after {
-                    display: block;
-                }
             }
 
+            
+        }
+
+        .active {
             &::after {
                 content: url(../../../public/assets/shared/icon-check.svg);
-                display: none;
             }
         }
     }
