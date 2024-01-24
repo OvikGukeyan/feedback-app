@@ -38,16 +38,6 @@
         display: flex;
         align-items: center;
 
-        svg {
-            cursor: pointer;
-
-            &:hover {
-                path {
-                    fill: #CFD7FF;
-                }
-            }
-        }
-
         span {
             font-size: 16px;
             font-weight: 700;

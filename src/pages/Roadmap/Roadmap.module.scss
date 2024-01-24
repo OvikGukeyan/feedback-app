@@ -1,0 +1,98 @@
+.roadmap {
+    header {
+        width: 100%;
+        height: 115px;
+        background-color: #373F68;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 25px;
+
+        .left_box {
+            h1 {
+                color: #fff;
+            }
+        }
+    }
+
+    .content {
+        margin-top: 35px;
+        display: flex;
+        justify-content: space-between;
+
+        .box {
+            width: 32%;
+
+            h3 {
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 400;
+            }
+
+            .feedback {
+                background-color: #fff;
+                padding: 25px;
+                border-radius: 5px;
+                margin-top: 30px;
+
+                .state {
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+
+                h3 {
+                    margin: 10px 0 10px 0;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #4661E6;
+                    }
+
+                }
+
+                p {
+                    margin-bottom: 15px;
+
+                }
+
+                .foot {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 15px;
+
+                    .comments {
+                        display: flex;
+                        align-items: center;
+
+                        span {
+                            font-size: 16px;
+                            font-weight: 700;
+                            margin-left: 10px;
+                        }
+                    }
+                }
+            }
+
+            .planned {
+                border-top: 6px solid #F49F85;
+            }
+
+            .inProgress {
+                border-top: 6px solid #AD1FEA;
+            }
+
+            .live {
+                border-top: 6px solid #62BCFA;
+            }
+        }
+
+
+    }
+}

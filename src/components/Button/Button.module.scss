@@ -47,7 +47,7 @@
     }
 }
 
-.upvotes {
+.upvotes, .upvotes_goriz {
     margin-right: 30px;
     background-color: #F2F2F2;
     font-size: 13px;
@@ -65,7 +65,14 @@
     }
 }
 
-.go_back {
+.upvotes_goriz {
+    flex-direction: row;
+    height: 40px;
+    justify-content: space-between;
+    width: 70px;
+}
+
+.go_back, .go_back_white {
     font-size: 14px;
     font-weight: 700;
     color: #647196;
@@ -78,6 +85,10 @@
         margin-right: 8px;
         content: url(../../../public/assets/shared/icon-arrow-left.svg);
     }
+}
+
+.go_back_white {
+    color: #fff;
 }
 
 .edit {
