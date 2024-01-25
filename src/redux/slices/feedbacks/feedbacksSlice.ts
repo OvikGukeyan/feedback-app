@@ -1,9 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../../store";
+import { sortByType } from "../filters/filtersSlice";
 
-export const fetchFeedbacks = createAsyncThunk('feedbacks/fetchFeedbacks', async () => {
-    const { data } = await axios.get('https://64fa17ff4098a7f2fc156145.mockapi.io/feedbacks');
+export type OptionsType = {
+    sortBy: sortByType
+    category: string | null
+}
+
+export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], OptionsType>('feedbacks/fetchFeedbacks', async ({sortBy, category}) => {
+    console.log(`https://64fa17ff4098a7f2fc156145.mockapi.io/feedbacks?sortBy=${sortBy.type}&order=${sortBy.order}&${category !== null ? `category=${category}` : ''}`)
+    const { data } = await axios.get(`https://64fa17ff4098a7f2fc156145.mockapi.io/feedbacks?sortBy=${sortBy.type}&order=${sortBy.order}&${category !== 'ALL' ? `category=${category}` : ''}`);
     return data
 });
 

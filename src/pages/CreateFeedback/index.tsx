@@ -4,10 +4,10 @@ import { Button, PopUp } from '../../components';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const CreateFeedback: React.FC = () => {
-    const categorysList = [{ name: 'ALL' }, { name: 'UI' }, { name: 'UX' }, { name: 'Enhancement' }, { name: 'Bug' }, { name: 'Feature' }];
+    const categorysList = [{ name: 'UI' }, { name: 'UX' }, { name: 'Enhancement' }, { name: 'Bug' }, { name: 'Feature' }];
     const statesList = [{ name: 'Suggestion' }, { name: 'Planned' }, { name: 'In-Progress' }, { name: 'Live' }];
     const [featureState, setFeatureState] = useState('Planned');
-    const [category, setCategory] = useState('ALL');
+    const [category, setCategory] = useState('');
 
 
     const navigate = useNavigate();

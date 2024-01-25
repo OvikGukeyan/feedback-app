@@ -4,12 +4,12 @@ import { Button, Item, SideBar, PopUp } from '../../components';
 import { useAppDispatch } from '../../redux/store';
 import { fetchFeedbacks, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useSelector } from 'react-redux';
-import { setCurentFeedbackId } from '../../redux/slices/filters/filtersSlice';
+import { selectFilters, setCurentFeedbackId, setSortBy } from '../../redux/slices/filters/filtersSlice';
 import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  const [sortItem, setSortItem] = useState('Most Upvotes')
   const { feedbacks } = useSelector(selectFeedbacks);
+  const {sortBy, category} = useSelector(selectFilters);
   const statuses = [
     { name: 'Planed', count: feedbacks.filter((item) => item.status === 'planned').length, color: '#F49F85' },
     { name: 'In Progress', count: feedbacks.filter((item) => item.status === 'in-progress').length, color: '#AD1FEA' },
@@ -25,14 +25,15 @@ const Home: React.FC = () => {
 
 
 
-  const suggestion = feedbacks.filter(item => item.status === 'suggestion')
+  const suggestions = feedbacks.filter(item => item.status === 'suggestion')
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchFeedbacks())
-  }, []);
+    
+    dispatch(fetchFeedbacks({sortBy, category}))
+  }, [sortBy, category]);
 
   const handleFeedbackCliick = (id: number) => {
     dispatch(setCurentFeedbackId(id));
@@ -45,8 +46,8 @@ const Home: React.FC = () => {
   };
 
   const handleChooseSort = (item: string) => {
-    const name = sortList.find((i) => i.name === item)?.name;
-    setSortItem(name ? name : 'Most Upvotes')
+    const obj = sortList.find((i) => i.name === item);
+    dispatch(setSortBy(obj))
   }
 
   return (
@@ -56,17 +57,17 @@ const Home: React.FC = () => {
         <header  >
           <div className={styles.suggestions}>
             <img src="./assets/suggestions/icon-suggestions.svg" alt="" />
-            <span> {suggestion.length} Suggestions</span>
+            <span> {suggestions.length} Suggestions</span>
           </div>
 
-          <PopUp active={sortItem} handleChooseItem={handleChooseSort} list={sortList} className='sort'>
-            <p className={styles.sort}>Sort by: <span>{sortItem}</span>
+          <PopUp active={sortBy.name} handleChooseItem={handleChooseSort} list={sortList} className='sort'>
+            <p className={styles.sort}>Sort by: <span>{sortBy.name}</span>
             </p>
           </PopUp>
           <Button onClick={handleAddClick} className='add_button'>+ Add Feedback</Button>
         </header>
-        {suggestion ?
-          suggestion.map((item) => (
+        {suggestions.length ?
+          suggestions.map((item) => (
             <div className={styles.items}>
               <Item handleFeedbackCliick={handleFeedbackCliick} item={item} />
             </div>

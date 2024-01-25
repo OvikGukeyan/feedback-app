@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from './SideBar.module.scss'
 import Button from '../Button';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFilters, setCategory } from '../../redux/slices/filters/filtersSlice';
 
 type SideBarTypes = {
     statuses: {
@@ -8,10 +11,21 @@ type SideBarTypes = {
         count: number,
         color: string
     }[]
-}
+};
 
 const SideBar: React.FC<SideBarTypes> = ({statuses}) => {
     const categorys = ['ALL', 'UI', 'UX', 'Enhancement', 'Bug', 'Feature'];
+    const navigate = useNavigate();
+    const {category} = useSelector(selectFilters);
+    const dispatch = useDispatch();
+
+    const handleRoadmapClick = () => {
+        navigate('/roadmap')
+    };
+
+    const handleChooseCategory = (cat: string) => {
+        dispatch(setCategory(cat))
+    }
 
     return (
         <aside className={styles.side_bar}>
@@ -20,12 +34,12 @@ const SideBar: React.FC<SideBarTypes> = ({statuses}) => {
                 <p>Feedback Board</p>
             </div>
             <div className={styles.categorys}>
-                {categorys.map((i) => (<Button className='category_button'>{i}</Button>))}
+                {categorys.map((i) => (<Button onClick={()=>handleChooseCategory(i)} className={category === i ? 'category_button_active':'category_button'}>{i}</Button>))}
             </div>
             <div className={styles.roadmap}>
                 <div className={styles.title}>
                     <h2>Roadmap</h2>
-                    <Button className='view_roadmap'>View</Button>
+                    <Button onClick={handleRoadmapClick} className='view_roadmap'>View</Button>
                 </div>
 
                 <ul>

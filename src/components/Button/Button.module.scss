@@ -22,7 +22,7 @@
 
 }
 
-.category_button {
+.category_button, .category_button_active {
     background-color: #F2F2F2;
     color: #4661E6;
     font-size: 13px;
@@ -31,6 +31,15 @@
 
     &:hover {
         background-color: #CFD7FF;
+
+    }
+}
+
+.category_button_active {
+    background-color: #4661E6;
+    color: #fff;
+    &:hover {
+        background-color: #4661E6;
     }
 }
 
