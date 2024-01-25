@@ -42,8 +42,8 @@ const FeedbackDetail: React.FC = () => {
             <div className={styles.comments}>
                 {commentsNumber ? <h2>{commentsNumber} Comments</h2> : <h2> This feedback has no comments yet </h2>}
                 {comments &&
-                    comments.map(item => (
-                        <FullComment comment={item} />
+                    comments.map((item, ind) => (
+                        <FullComment key={ind} comment={item} />
                     ))
                 }
             </div>

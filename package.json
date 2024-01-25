@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.2.18",
     "axios": "^1.6.5",
     "react": "^18.2.0",
+    "react-content-loader": "^6.2.1",
     "react-css-modules": "^4.7.11",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
