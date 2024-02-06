@@ -40,8 +40,8 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseIt
                 {children}
                 {
                     visiblePopup ?
-                        <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 6l4-4 4 4" strokeWidth="2" fill="none" fillRule="evenodd" /></svg> :
-                        <svg width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l4 4 4-4" strokeWidth="2" fill="none" fillRule="evenodd" /></svg>
+                        <svg width="10" height="7" ><path d="M1 6l4-4 4 4" strokeWidth="2" fill="none" fillRule="evenodd" /></svg> :
+                        <svg width="10" height="7" ><path d="M1 1l4 4 4-4" strokeWidth="2" fill="none" fillRule="evenodd" /></svg>
                 }
                 {visiblePopup && <div className={styles.pop_Up}>
                     <ul>

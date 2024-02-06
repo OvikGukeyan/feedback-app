@@ -8,7 +8,7 @@
     cursor: pointer;
 }
 
-.add_button {
+.add_button, .sign_in {
     background-color: #AD1FEA;
     color: #fff;
     min-width: 160px;
@@ -21,6 +21,8 @@
     }
 
 }
+
+
 
 .category_button, .category_button_active {
     background-color: #F2F2F2;
@@ -100,7 +102,7 @@
     color: #fff;
 }
 
-.edit {
+.edit, .sign_up {
     background-color: #4661E6;
     color: #fff;
     min-width: 160px;
@@ -113,6 +115,10 @@
     }
 }
 
+.sign_up {
+    min-width: 95px;
+}
+
 .cancel {
     background-color: #3A4374;
     color: #fff;
@@ -123,7 +129,7 @@
     }
 }
 
-.delete {
+.delete, .sign_out {
     background-color: #D73737;
     color: #fff;
     width: 95px;
@@ -132,3 +138,4 @@
         background-color: #E98888;
     }
 }
+

@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './FeedbackDetail.module.scss';
 import { Button, FullComment, Item } from '../../components';
-import { useSelector } from 'react-redux';
-import { Comment, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
-import { selectFilters } from '../../redux/slices/filters/filtersSlice';
-import { useNavigate } from 'react-router-dom';
+import { Comment, FeedbackItem } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from '../../axios';
+import ItemLoader from '../../components/Item/ItemLoader';
 
 
 const FeedbackDetail: React.FC = () => {
-    const navigate = useNavigate()
-    const { curentFeedbackId } = useSelector(selectFilters)
-    const { feedbacks } = useSelector(selectFeedbacks);
-    const curentFeedback = feedbacks.find(item => item.id === curentFeedbackId);
+    const navigate = useNavigate();
+    const params = useParams();
+    const [curentFeedback, setCurentFeedback] = useState<FeedbackItem>();
+
     const comments = curentFeedback?.comments;
-
-
     const countCommentsNumber = (com: Comment[]) => {
         const commentsNumber = com?.length ? com.length : 0;
         const replies = com?.reduce((acu, item) => item?.replies ? acu + item.replies.length : acu + 0, 0);
         return commentsNumber + replies
     };
 
-    const commentsNumber = comments ? countCommentsNumber(comments): 0;
+    useEffect(() => {
+        axios.get(`/feedbacks/${params.id}`)
+            .then((res) => {
+                setCurentFeedback(res.data);
+            })
+            .catch((error) => {
+                console.warn(error)
+                alert('Error getting article!')
+            })
+    }, [])
+
+    const commentsNumber = comments ? countCommentsNumber(comments) : 0;
 
     const handleClickBack = () => {
         navigate('/')
@@ -38,7 +47,7 @@ const FeedbackDetail: React.FC = () => {
                 <Button onClick={handleClickBack} className='go_back'>Go Back</Button>
                 <Button onClick={handleClickEdit} className='edit'>Edit Feedback</Button>
             </div>
-            {curentFeedback && <Item item={curentFeedback} />}
+            {curentFeedback ? <Item item={curentFeedback} /> : <ItemLoader/>}
             <div className={styles.comments}>
                 {commentsNumber ? <h2>{commentsNumber} Comments</h2> : <h2> This feedback has no comments yet </h2>}
                 {comments &&

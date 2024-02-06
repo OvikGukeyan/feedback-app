@@ -22,6 +22,17 @@
                     margin-left: 15px;
                 }
             }
+
+            .buttons_box {
+                display: flex;
+
+                div {
+                    
+                    &:last-child {
+                        margin-left: 15px;
+                    }
+                }
+            }
     
           
         }
