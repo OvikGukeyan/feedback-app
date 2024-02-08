@@ -7,9 +7,11 @@ import { useSelector } from 'react-redux';
 import { selectFilters, setSortBy } from '../../redux/slices/filters/filtersSlice';
 import { useNavigate } from 'react-router-dom';
 import ItemLoader from '../../components/Item/ItemLoader';
+import { selectIsAuth, signOut } from '../../redux/slices/auth/authSlice';
 
 const Home: React.FC = () => {
-  const [isAuth, setIsAuth] = useState(true)
+  const isAuth = Boolean(useSelector(selectIsAuth).data);
+
   const { feedbacks, isLoading, loadingRejected } = useSelector(selectFeedbacks);
   const { sortBy, category } = useSelector(selectFilters);
   const statuses = [
@@ -41,6 +43,11 @@ const Home: React.FC = () => {
     window.scroll(0, 0);
   };
 
+  const handleSignOut = () => {
+    dispatch(signOut());
+    window.localStorage.removeItem('token')
+  }
+
   const handleAddClick = () => {
     navigate('/create')
   };
@@ -71,7 +78,7 @@ const Home: React.FC = () => {
           {isAuth ?
             <div className={styles.buttons_box}>
               <Button onClick={handleAddClick} className='add_button'>+ Add Feedback</Button>
-              <Button onClick={() => { }} className='sign_out'>Sign Out</Button>
+              <Button onClick={handleSignOut} className='sign_out'>Sign Out</Button>
             </div>
             :
             <div className={styles.buttons_box}>
@@ -81,7 +88,7 @@ const Home: React.FC = () => {
 
         </header>
         {isLoading ?
-          [...Array(4)].map((i, ind) => (
+          [...Array(2)].map((i, ind) => (
             <ItemLoader key={ind} />
           )) :
 
@@ -97,7 +104,7 @@ const Home: React.FC = () => {
             <h1>There is no feedback yet.</h1>
             <p>Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.</p>
           </div>
-          <Button className='add_button'>+ Add Feedback</Button>
+          <Button onClick={() => {}} className='add_button'>+ Add Feedback</Button>
         </div>}
       </div>
     </div>

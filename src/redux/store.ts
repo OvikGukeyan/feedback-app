@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import filters from './slices/filters/filtersSlice';
-import feedbacks from './slices/feedbacks/feedbacksSlice'
+import feedbacks from './slices/feedbacks/feedbacksSlice';
+import auth from './slices/auth/authSlice'
 import { useDispatch } from "react-redux";
 
 const store = configureStore({
     reducer: {
         filters,
-        feedbacks
+        feedbacks,
+        auth
     }
 });
 
