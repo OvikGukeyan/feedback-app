@@ -12,8 +12,9 @@ import { selectIsAuth } from '../../redux/slices/auth/authSlice';
 const FeedbackDetail: React.FC = () => {
     const navigate = useNavigate();
     const params = useParams();
+    const { data } = useSelector(selectIsAuth);
     const [curentFeedback, setCurentFeedback] = useState<FeedbackItem>();
-    const {data} = useSelector(selectIsAuth);
+    const isEditable = data?._id === curentFeedback?.user._id
     const comments = curentFeedback?.comments;
     const countCommentsNumber = (com: Comment[]) => {
         const commentsNumber = com?.length ? com.length : 0;
@@ -47,9 +48,9 @@ const FeedbackDetail: React.FC = () => {
         <div className={styles.detail}>
             <div className={styles.head}>
                 <Button onClick={handleClickBack} className='go_back'>Go Back</Button>
-                 {data?._id === curentFeedback?.user._id && <Button onClick={handleClickEdit} className='edit'>Edit Feedback</Button>}
+                {isEditable && <Button onClick={handleClickEdit} className='edit'>Edit Feedback</Button>}
             </div>
-            {curentFeedback ? <Item item={curentFeedback} /> : <ItemLoader/>}
+            {curentFeedback ? <Item item={curentFeedback} /> : <ItemLoader />}
             <div className={styles.comments}>
                 {commentsNumber ? <h2>{commentsNumber} Comments</h2> : <h2> This feedback has no comments yet </h2>}
                 {comments &&

@@ -51,7 +51,7 @@ export type FeedbackItem = {
 };
 
 
-interface FeedbacksSliceState {
+export interface FeedbacksSliceState {
     feedbacks: FeedbackItem[]
     isLoading: boolean
     loadingRejected: boolean
