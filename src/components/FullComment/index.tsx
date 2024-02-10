@@ -14,11 +14,11 @@ const FullComment: React.FC<FullCommentType> = ({comment}) => {
         <div className={styles.comment}>
             <div className={styles.comment_head}>
                 <div className={styles.img}>
-                    <img src={comment.user.image} alt="" />
+                    <img src={comment.user?.avatarUrl} alt="" />
                 </div>
                 <div className={styles.names}>
-                    <h4>{comment.user.name}</h4>
-                    <p>@{comment.user.username}</p>
+                    <h4>{comment.user.fullName}</h4>
+                    <p>@{comment.user.userName}</p>
                 </div>
                 <Button className='view_roadmap'>Reply</Button>
             </div>
@@ -28,11 +28,11 @@ const FullComment: React.FC<FullCommentType> = ({comment}) => {
                     <div className={`${styles.comment} ${styles.reply}`}>
                     <div className={styles.comment_head}>
                         <div className={styles.img}>
-                            <img src={item.user.image} alt="" />
+                            <img src={item.user.avatarUrl} alt="" />
                         </div>
                         <div className={styles.names}>
-                            <h4>{item.user.name}</h4>
-                            <p>@{item.user.username}</p>
+                            <h4>{item.user.fullName}</h4>
+                            <p>@{item.user.userName}</p>
                         </div>
                         <Button className='view_roadmap'>Reply</Button>
                     </div>

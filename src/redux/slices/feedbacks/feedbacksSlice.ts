@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../../axios";
 import { RootState } from "../../store";
 import { sortByType } from "../filters/filtersSlice";
+import { UserDataType } from "../auth/authSlice";
 
 export type OptionsType = {
     sortBy: sortByType
@@ -20,33 +21,33 @@ export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], OptionsType>('fee
 
 
 
-type User = {
-    image: string;
-    name: string;
-    username: string;
-};
+
 
 export type Comment = {
-    id: number;
-    content: string;
-    user: User;
-    replies?: Reply[];
+    id: number
+    content: string
+    user: UserDataType
+    replies?: Reply[]
 };
 
 type Reply = {
-    content: string;
-    replyingTo: string;
-    user: User;
+    content: string
+    replyingTo: string
+    user: UserDataType
 };
 
 export type FeedbackItem = {
-    _id: number;
-    title: string;
-    category: string;
-    upvotes: number;
-    status: string;
-    description: string;
-    comments?: Comment[];
+    _id: number
+    title: string
+    description: string
+    upvotes: number
+    category: string
+    status: string
+    user: UserDataType
+    comments?: Comment[]
+    createdAt: string
+    updatedAt: string
+    __v: number
 };
 
 

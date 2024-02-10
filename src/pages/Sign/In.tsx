@@ -3,11 +3,11 @@ import styles from './Sign.module.scss';
 import { Button } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { dataType, fetchLogin, paramsType, selectIsAuth } from '../../redux/slices/auth/authSlice';
+import { fetchLogin, LoginParamsType, selectIsAuth } from '../../redux/slices/auth/authSlice';
 import { useAppDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
 
-const Sign: React.FC = () => {
+const SignIn: React.FC = () => {
     const dispatch = useAppDispatch();
     const isAuth = Boolean(useSelector(selectIsAuth).data);
     const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm({
@@ -15,7 +15,7 @@ const Sign: React.FC = () => {
             email: 'tjlkiklkkjkekkst@gmail.com',
             password: '12345'
         },
-        mode: 'onChange'
+        mode: 'onBlur'
     });
 
 
@@ -26,7 +26,7 @@ const Sign: React.FC = () => {
         }
     }
 
-    const onSubmit = async (values: paramsType) => {
+    const onSubmit = async (values: LoginParamsType) => {
         const data = await dispatch(fetchLogin(values)) as FetchLoginResponse;
         if (data.payload) {
             window.localStorage.setItem('token', data.payload.token)
@@ -62,7 +62,11 @@ const Sign: React.FC = () => {
                             </div>
                         </label>
                         <input className={errors.email && styles.input_error} {...register('email', {
-                            required: 'Enter your email'
+                            required: 'Enter your email',
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: 'Wrong email format!'
+                            }
                         },)} type="text" name='email' />
                     </div>
                     <div className={styles.password}>
@@ -75,14 +79,14 @@ const Sign: React.FC = () => {
                         <input className={errors.password && styles.input_error} {...register('password', {
                             required: 'Enter your password',
                             pattern: {
-                                value: /^[a-zA-Z0-9\s,'-]*/,
+                                value: /^.{5,}$/,
                                 message: 'Wrong password format!'
                             }
                         })} type="text" name='password' />
                     </div>
                     <div className={styles.buttons}>
                         <div className={styles.box}>
-                            <button className={styles.log_in} type='submit'>Submit</button>
+                            <button disabled = {!isValid} className={styles.submit} type='submit'>Submit</button>
                         </div>
 
                     </div>
@@ -95,4 +99,4 @@ const Sign: React.FC = () => {
     )
 }
 
-export default Sign;
+export default SignIn;

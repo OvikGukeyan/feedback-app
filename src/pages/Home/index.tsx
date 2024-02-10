@@ -52,6 +52,10 @@ const Home: React.FC = () => {
     navigate('/create')
   };
 
+  const handleSignUpClick = () => {
+    navigate('/register')
+  };
+
   const handleSignInClick = () => {
     navigate('/login')
   }
@@ -83,9 +87,8 @@ const Home: React.FC = () => {
             :
             <div className={styles.buttons_box}>
               <Button onClick={handleSignInClick} className='sign_in'>Sign In</Button>
-              <Button onClick={() => { }} className='sign_up'>Sign Up</Button>
+              <Button onClick={handleSignUpClick} className='sign_up'>Sign Up</Button>
             </div>}
-
         </header>
         {isLoading ?
           [...Array(2)].map((i, ind) => (

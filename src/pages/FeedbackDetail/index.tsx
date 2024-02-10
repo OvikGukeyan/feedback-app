@@ -5,13 +5,15 @@ import { Comment, FeedbackItem } from '../../redux/slices/feedbacks/feedbacksSli
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from '../../axios';
 import ItemLoader from '../../components/Item/ItemLoader';
+import { useSelector } from 'react-redux';
+import { selectIsAuth } from '../../redux/slices/auth/authSlice';
 
 
 const FeedbackDetail: React.FC = () => {
     const navigate = useNavigate();
     const params = useParams();
     const [curentFeedback, setCurentFeedback] = useState<FeedbackItem>();
-
+    const {data} = useSelector(selectIsAuth);
     const comments = curentFeedback?.comments;
     const countCommentsNumber = (com: Comment[]) => {
         const commentsNumber = com?.length ? com.length : 0;
@@ -37,7 +39,7 @@ const FeedbackDetail: React.FC = () => {
     };
 
     const handleClickEdit = () => {
-        navigate('/edit')
+        navigate(`/edit/${curentFeedback?._id}`)
     };
 
 
@@ -45,7 +47,7 @@ const FeedbackDetail: React.FC = () => {
         <div className={styles.detail}>
             <div className={styles.head}>
                 <Button onClick={handleClickBack} className='go_back'>Go Back</Button>
-                <Button onClick={handleClickEdit} className='edit'>Edit Feedback</Button>
+                 {data?._id === curentFeedback?.user._id && <Button onClick={handleClickEdit} className='edit'>Edit Feedback</Button>}
             </div>
             {curentFeedback ? <Item item={curentFeedback} /> : <ItemLoader/>}
             <div className={styles.comments}>

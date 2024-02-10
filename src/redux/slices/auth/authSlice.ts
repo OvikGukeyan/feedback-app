@@ -1,36 +1,50 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "../../../axios";
 import { RootState } from "../../store";
+import { Url } from "url";
 
-export type paramsType = {
+export type LoginParamsType = {
     email: string,
     password: string
 }
 
-export const fetchLogin = createAsyncThunk<dataType, paramsType>('auth/fetchLogin', async(params) => {
-    const {data} = await axios.post('/auth/login', params);
+export type RegisterParamsType = {
+    fullName: string
+    userName: string
+    email: string
+    password: string
+}
+
+export const fetchRegister = createAsyncThunk<UserDataType, RegisterParamsType>('auth/fetchRegister', async (params) => {
+    const { data } = await axios.post('/auth/register', params);
     return data;
 })
 
-export const fetchAuthMe = createAsyncThunk<dataType>('auth/fetchAuthMe', async() => {
-    const {data} = await axios.get('/auth/me');
+export const fetchLogin = createAsyncThunk<UserDataType, LoginParamsType>('auth/fetchLogin', async (params) => {
+    const { data } = await axios.post('/auth/login', params);
+    return data;
+})
+
+export const fetchAuthMe = createAsyncThunk<UserDataType>('auth/fetchAuthMe', async () => {
+    const { data } = await axios.get('/auth/me');
     return data;
 })
 
 
-export type dataType = {
+export type UserDataType = {
     _id: string;
-  fullName: string;
-  userName: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  token: string;
+    fullName: string;
+    userName: string;
+    email: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    token: string;
+    avatarUrl?: string
 }
 
 interface authSliceState {
-    data: dataType | null
+    data: UserDataType | null
     isLoading: boolean
     loadingRejected: boolean
 }
@@ -39,6 +53,20 @@ const initialState: authSliceState = {
     data: null,
     isLoading: false,
     loadingRejected: false
+}
+
+const handleRequest = (state: authSliceState, action: PayloadAction<UserDataType>) => {
+    state.isLoading = false;
+    state.data = action.payload;
+};
+
+const handleRejected = (state: authSliceState) => {
+    state.isLoading = false;
+    state.loadingRejected = true;
+};
+
+const handlePending = (state: authSliceState) => {
+    state.isLoading = true
 }
 
 const authSlice = createSlice({
@@ -50,31 +78,20 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchLogin.pending, (state) => {
-            state.isLoading = true;
-        });
-        builder.addCase(fetchLogin.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.data = action.payload;
-        });
-        builder.addCase(fetchLogin.rejected, (state) => {
-            state.isLoading = false; 
-            state.loadingRejected = true;
-        });
-        builder.addCase(fetchAuthMe.pending, (state) => {
-            state.isLoading = true;
-        });
-        builder.addCase(fetchAuthMe.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.data = action.payload;
-        });
-        builder.addCase(fetchAuthMe.rejected, (state) => {
-            state.isLoading = false; 
-            state.loadingRejected = true;
-        })
+        builder
+            .addCase(fetchLogin.pending, handlePending)
+            .addCase(fetchLogin.fulfilled, handleRequest)
+            .addCase(fetchLogin.rejected, handleRejected)
+            .addCase(fetchAuthMe.pending, handlePending)
+            .addCase(fetchAuthMe.fulfilled, handleRequest)
+            .addCase(fetchAuthMe.rejected, handleRejected)
+            .addCase(fetchRegister.pending, handlePending)
+            .addCase(fetchRegister.fulfilled, handleRequest)
+            .addCase(fetchRegister.rejected, handleRejected);
     }
+
 });
 
-export const {signOut} = authSlice.actions;
+export const { signOut } = authSlice.actions;
 export const selectIsAuth = (state: RootState) => state.auth
 export default authSlice.reducer;

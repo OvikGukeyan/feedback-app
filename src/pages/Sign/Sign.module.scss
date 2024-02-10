@@ -81,7 +81,7 @@
                     justify-content: end;
                     width: 100%;
 
-                    .log_in {
+                    .submit {
                         background-color: #AD1FEA;
                         color: #fff;
                         min-width: 160px;
@@ -92,6 +92,11 @@
                         border-radius: 10px;
                         cursor: pointer;
 
+                        &:disabled {
+                            pointer-events: none;
+                        opacity: 0.4;
+                        }
+                        
 
                         &:hover {
                             background-color: #C75AF6;
@@ -112,3 +117,4 @@
 
     }
 }
+
