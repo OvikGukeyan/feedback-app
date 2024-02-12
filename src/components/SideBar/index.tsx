@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SideBar.module.scss'
 import Button from '../Button';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFilters, setCategory } from '../../redux/slices/filters/filtersSlice';
 
@@ -15,13 +15,10 @@ type SideBarTypes = {
 
 const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
     const categorys = ['ALL', 'UI', 'UX', 'Enhancement', 'Bug', 'Feature'];
-    const navigate = useNavigate();
     const { category } = useSelector(selectFilters);
     const dispatch = useDispatch();
 
-    const handleRoadmapClick = () => {
-        navigate('/roadmap')
-    };
+   
 
     const handleChooseCategory = (cat: string) => {
         dispatch(setCategory(cat))
@@ -39,7 +36,8 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
             <div className={styles.roadmap}>
                 <div className={styles.title}>
                     <h2>Roadmap</h2>
-                    <Button onClick={handleRoadmapClick} className='view_roadmap'>View</Button>
+                    <Link to={'/roadmap'}><Button className='view_roadmap'>View</Button></Link>
+                    
                 </div>
 
                 <ul>

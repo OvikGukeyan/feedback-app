@@ -1,5 +1,6 @@
-import React, { Children, useEffect, useRef, useState } from 'react';
+import React, { Children, useEffect, useRef, useState, Ref } from 'react';
 import styles from './PopUp.module.scss';
+import { UseFormRegister } from 'react-hook-form';
 
 type PopUpTypes = {
     children: any
@@ -8,15 +9,15 @@ type PopUpTypes = {
         name: string;
         type: string;
         order: string;
-    }[] | {name: string}[]
-    handleChooseItem: (item: string)=>void
-    active:string
+    }[] | { name: string }[]
+    handleChooseItem: (item: string) => void
+    active: string
 }
 const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseItem, active }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
     const sortRef = useRef<HTMLDivElement>(null);
 
-    
+
 
     const handleOutsideClick = (e: MouseEvent) => {
         if (sortRef.current) {
@@ -46,7 +47,7 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseIt
                 {visiblePopup && <div className={styles.pop_Up}>
                     <ul>
                         {list.map((item) => (
-                            <li key={item.name} className={active === item.name ? styles.active : ''} onClick={()=>handleChooseItem(item.name)}>{item.name}</li>
+                            <li key={item.name} className={active === item.name ? styles.active : ''} onClick={() => handleChooseItem(item.name)}>{item.name}</li>
                         ))}
                     </ul>
                 </div>}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './FeedbackDetail.module.scss';
 import { Button, FullComment, Item } from '../../components';
 import { Comment, FeedbackItem } from '../../redux/slices/feedbacks/feedbacksSlice';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from '../../axios';
 import ItemLoader from '../../components/Item/ItemLoader';
 import { useSelector } from 'react-redux';
@@ -10,7 +10,6 @@ import { selectIsAuth } from '../../redux/slices/auth/authSlice';
 
 
 const FeedbackDetail: React.FC = () => {
-    const navigate = useNavigate();
     const params = useParams();
     const { data } = useSelector(selectIsAuth);
     const [curentFeedback, setCurentFeedback] = useState<FeedbackItem>();
@@ -35,20 +34,16 @@ const FeedbackDetail: React.FC = () => {
 
     const commentsNumber = comments ? countCommentsNumber(comments) : 0;
 
-    const handleClickBack = () => {
-        navigate('/')
-    };
+   
 
-    const handleClickEdit = () => {
-        navigate(`/edit/${curentFeedback?._id}`)
-    };
-
+   
 
     return (
         <div className={styles.detail}>
             <div className={styles.head}>
-                <Button onClick={handleClickBack} className='go_back'>Go Back</Button>
-                {isEditable && <Button onClick={handleClickEdit} className='edit'>Edit Feedback</Button>}
+                <Link to={'/'}><Button className='go_back'>Go Back</Button></Link>
+                
+                {isEditable && <Link to={`/edit/${curentFeedback?._id}`}><Button  className='edit'>Edit Feedback</Button></Link>}
             </div>
             {curentFeedback ? <Item item={curentFeedback} /> : <ItemLoader />}
             <div className={styles.comments}>

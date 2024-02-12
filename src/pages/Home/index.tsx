@@ -2,18 +2,21 @@ import React from 'react'
 import styles from './Home.module.scss'
 import { Button, Item, SideBar, PopUp } from '../../components';
 import { useAppDispatch } from '../../redux/store';
-import { FeedbackItem, FeedbacksSliceState, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { FeedbacksSliceState, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useSelector } from 'react-redux';
 import { selectFilters, setSortBy } from '../../redux/slices/filters/filtersSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ItemLoader from '../../components/Item/ItemLoader';
 import { selectIsAuth, signOut } from '../../redux/slices/auth/authSlice';
 
 type HomeType = {
   feedbacksData: FeedbacksSliceState
-}
+};
 
 const Home: React.FC<HomeType> = ({feedbacksData}) => {
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const isAuth = Boolean(useSelector(selectIsAuth).data);
   const {feedbacks, isLoading, loadingRejected} = feedbacksData;
   const { sortBy } = useSelector(selectFilters);
@@ -32,10 +35,9 @@ const Home: React.FC<HomeType> = ({feedbacksData}) => {
 
 
 
-  const suggestions = feedbacks.filter(item => item.status === 'suggestion')
+  const suggestions = feedbacks.filter(item => item.status === 'suggestion');
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  
 
  
 
@@ -47,24 +49,14 @@ const Home: React.FC<HomeType> = ({feedbacksData}) => {
   const handleSignOut = () => {
     dispatch(signOut());
     window.localStorage.removeItem('token')
-  }
-
-  const handleAddClick = () => {
-    navigate('/create')
   };
 
-  const handleSignUpClick = () => {
-    navigate('/register')
-  };
-
-  const handleSignInClick = () => {
-    navigate('/login')
-  }
+  
 
   const handleChooseSort = (item: string) => {
     const obj = sortList.find((i) => i.name === item);
     dispatch(setSortBy(obj))
-  }
+  };
 
   return (
     <div className={styles.home}>
@@ -82,13 +74,18 @@ const Home: React.FC<HomeType> = ({feedbacksData}) => {
           </PopUp>
           {isAuth ?
             <div className={styles.buttons_box}>
-              <Button onClick={handleAddClick} className='add_button'>+ Add Feedback</Button>
+              <Link to={'/create'}><Button className='add_button'>+ Add Feedback</Button></Link>
               <Button onClick={handleSignOut} className='sign_out'>Sign Out</Button>
+
+              
+              
             </div>
             :
             <div className={styles.buttons_box}>
-              <Button onClick={handleSignInClick} className='sign_in'>Sign In</Button>
-              <Button onClick={handleSignUpClick} className='sign_up'>Sign Up</Button>
+              <Link to={'/login'}><Button className='sign_in'>Sign In</Button></Link>
+              <Link to={'/register'}><Button className='sign_up'>Sign Up</Button></Link>
+              
+              
             </div>}
         </header>
         {isLoading ?

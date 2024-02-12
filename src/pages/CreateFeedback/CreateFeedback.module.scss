@@ -48,13 +48,14 @@
                     padding: 20px;
 
                     
-
                     &:focus {
                         outline: none;
-
+                        border: 1px solid #4661E6;
                     }
 
                 }
+
+                
 
                 textarea {
                     width: 100%;
@@ -73,8 +74,12 @@
         
                     &:focus {
                         outline: none;
-        
+                        border: 1px solid #4661E6;
                     }
+                }
+
+                .input_error {
+                    border: 1px solid #D73737;
                 }
             }
 
@@ -107,9 +112,31 @@
                 display: flex;
                 justify-content: end;
                 width: 100%;
+
+                .submit {
+                    background-color: #AD1FEA;
+                    color: #fff;
+                    min-width: 160px;
+                    font-size: 14px;
+                    font-weight: 700;
+                    height: 45px;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+
+                    &:disabled {
+                        pointer-events: none;
+                        opacity: 0.4;
+                    }
+
+
+                    &:hover {
+                        background-color: #C75AF6;
+                    }
+                }
                 div {
-                    &:last-child {
-                        margin-left: 20px;
+                    &:first-child {
+                        margin-right: 20px;
                     }
                 }
             }

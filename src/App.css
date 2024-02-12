@@ -11,6 +11,9 @@
   color: #3A4374;
 }
 
+a {
+  text-decoration: none;
+}
 
 
 .App {
