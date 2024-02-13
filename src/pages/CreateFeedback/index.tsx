@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styles from './CreateFeedback.module.scss';
 import { Button, PopUp } from '../../components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import axios from '../../axios';
 
 
 type CreateFeedbackType = {
@@ -12,11 +13,11 @@ type CreateFeedbackType = {
 const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
     const categorysList = [{ name: 'UI' }, { name: 'UX' }, { name: 'Enhancement' }, { name: 'Bug' }, { name: 'Feature' }];
     const statesList = [{ name: 'Suggestion' }, { name: 'Planned' }, { name: 'In-Progress' }, { name: 'Live' }];
-    const [featureState, setFeatureState] = useState('Planned');
-    const [category, setCategory] = useState('');
+
+    const navigate = useNavigate()
 
 
-    const { register, handleSubmit, setError, formState: { errors, isValid }, setValue } = useForm({
+    const { register, handleSubmit, setError, formState: { errors, isValid }, setValue, watch } = useForm({
         defaultValues: {
             title: '',
             category: '',
@@ -26,8 +27,10 @@ const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
         mode: 'onBlur'
     });
 
+    const category = watch('category');
+    const featureState = watch('featureState');
+
     const handleChooseCategory = (item: string) => {
-        setCategory(item)
         setValue('category', item)
     };
 
@@ -35,13 +38,18 @@ const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
         setValue('featureState', item)
     };
 
-    const onSubmit = (data: {
+    const onSubmit = async(params: {
         title: string;
         category: string;
         description: string;
         featureState: string;
     }) => {
-        console.log(data)
+        await axios.post('/feedbacks', params)
+        .then((res) => navigate(`/detail/${res.data._id}`))
+        .catch((error) => {
+            console.warn(error)
+            alert('Creating error!')
+        })
     }
 
     return (
@@ -75,7 +83,6 @@ const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
                             handleChooseItem={handleChooseCategory}
                             list={categorysList}
                             className='category'
-                            
                         >
                             <span>{category}</span>
                         </PopUp>
@@ -104,16 +111,16 @@ const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
                         },)}></textarea>
                     </div>
                     <div className={styles.buttons}>
-                    {isEdit &&
-                        <Button className='delete'>Delete</Button>
-                    }
+                        {isEdit &&
+                            <Button className='delete'>Delete</Button>
+                        }
 
-                    <div className={styles.box}>
-                        <Button className='cancel'>Cancel</Button>
-                        <button disabled={!isValid} className={styles.submit} type='submit'>Submit</button>
+                        <div className={styles.box}>
+                            <Button className='cancel'>Cancel</Button>
+                            <button disabled={!isValid} className={styles.submit} type='submit'>Submit</button>
+                        </div>
+
                     </div>
-
-                </div>
                 </form>
             </div>
         </div>

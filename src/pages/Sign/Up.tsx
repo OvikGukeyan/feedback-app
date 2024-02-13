@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useRef } from 'react';
 import styles from './Sign.module.scss';
 import { Button } from '../../components';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,13 +6,16 @@ import { useForm } from 'react-hook-form';
 import { fetchRegister, RegisterParamsType, selectIsAuth } from '../../redux/slices/auth/authSlice';
 import { useAppDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
+import axios from '../../axios';
 
 const SignUp: React.FC = () => {
     const dispatch = useAppDispatch();
     const isAuth = Boolean(useSelector(selectIsAuth).data);
     const navigate = useNavigate();
-    const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm({
+    const inputFileRef = useRef<HTMLInputElement | null>(null);
+    const { register, handleSubmit, setValue, setError, formState: { errors, isValid }, watch } = useForm({
         defaultValues: {
+            avatarUrl: '',
             fullName: 'Jhony',
             userName: 'jhonFrank',
             email: 'jjfkdnkjfv@gmail.com',
@@ -20,6 +23,9 @@ const SignUp: React.FC = () => {
         },
         mode: 'onBlur'
     });
+
+
+    const avatarUrl = watch('avatarUrl');
 
     type FetchLoginResponse = {
         payload?: {
@@ -36,6 +42,26 @@ const SignUp: React.FC = () => {
 
     };
 
+    const uploadButtonClicklick = () => {
+        if(inputFileRef.current) {
+            inputFileRef.current.click()
+        }
+    };
+
+    const handleFileChange = async(event: ChangeEvent<HTMLInputElement>) => {
+        try {
+            const formData = new FormData();
+            if(event.target.files) {
+                formData.append('image', event.target.files[0])
+            }
+            const {data} = await axios.post('/upload', formData);
+            setValue('avatarUrl', data.url)
+        } catch (error) {
+                console.warn(error)
+                alert('Uploading failed!')
+        }
+    }
+
 
     if (isAuth) {
         navigate('/')
@@ -47,6 +73,16 @@ const SignUp: React.FC = () => {
                 <svg className={styles.logo} width="56" height="56" ><defs><radialGradient cx="103.9%" cy="-10.387%" fx="103.9%" fy="-10.387%" r="166.816%" id="a"><stop stopColor="#E84D70" offset="0%" /><stop stopColor="#A337F6" offset="53.089%" /><stop stopColor="#28A7ED" offset="100%" /></radialGradient></defs><g fill="none" fillRule="evenodd"><circle fill="url(#a)" cx="28" cy="28" r="28" /><path fill="#FFF" fillRule="nonzero" d="M30.343 36v-5.834h5.686v-4.302h-5.686V20h-4.597v5.864H20v4.302h5.746V36z" /></g></svg>
                 <h1>Sign - Up</h1>
                 <form onSubmit={handleSubmit(onSubmit)} action="">
+                    <div className={styles.upload}>
+                        <label htmlFor="upload">Avatar
+                            <div>
+                                <span className={styles.placeholder}>Upload your avatar (not necessary)</span>
+                                {avatarUrl.length > 0 && <img className={styles.tick} src="./assets/shared/green-tick.png" alt="" />}
+                            </div>
+                        </label>
+                        <Button onClick={uploadButtonClicklick} className={'upload_button'}>Choose file</Button>
+                        <input onChange={handleFileChange} ref={inputFileRef} type="file" name='upload'/>
+                    </div>
                     <div className={styles.email}>
                         <label htmlFor="fullName">Full name
                             <div>
@@ -109,7 +145,7 @@ const SignUp: React.FC = () => {
                     </div>
                     <div className={styles.buttons}>
                         <div className={styles.box}>
-                            <button  disabled = {!isValid} className={styles.submit} type='submit'>Submit</button>
+                            <button disabled={!isValid} className={styles.submit} type='submit'>Submit</button>
                         </div>
 
                     </div>

@@ -26,7 +26,8 @@
         form {
 
             .email,
-            .password {
+            .password,
+            .upload {
                 label {
                     display: flex;
                     flex-direction: column;
@@ -36,11 +37,17 @@
                     div {
                         display: flex;
                         justify-content: space-between;
+                        align-items: center;
                         font-weight: 400;
 
 
                         .error {
                             color: #D73737;
+                        }
+
+                        .tick {
+                            width: 25px;
+
                         }
                     }
 
@@ -69,6 +76,12 @@
                 }
 
 
+            }
+
+            .upload {
+                input {
+                    display: none;
+                }
             }
 
             .buttons {

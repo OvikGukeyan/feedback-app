@@ -140,3 +140,13 @@
     }
 }
 
+.upload_button {
+    background-color: #F2F4FF;
+    height: 40px;
+    margin: 15px 0 30px 0;
+
+    &:hover {
+        background-color: #F7F8FD;
+    }
+}
+
