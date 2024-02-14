@@ -1,25 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './Home.module.scss'
 import { Button, Item, SideBar, PopUp } from '../../components';
 import { useAppDispatch } from '../../redux/store';
-import { FeedbacksSliceState, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { fetchFeedbacks, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useSelector } from 'react-redux';
 import { selectFilters, setSortBy } from '../../redux/slices/filters/filtersSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import ItemLoader from '../../components/Item/ItemLoader';
 import { selectIsAuth, signOut } from '../../redux/slices/auth/authSlice';
 
-type HomeType = {
-  feedbacksData: FeedbacksSliceState
-};
 
-const Home: React.FC<HomeType> = ({feedbacksData}) => {
+
+const Home: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isAuth = Boolean(useSelector(selectIsAuth).data);
-  const {feedbacks, isLoading, loadingRejected} = feedbacksData;
-  const { sortBy } = useSelector(selectFilters);
+  const {feedbacks, isLoading, loadingRejected} = useSelector(selectFeedbacks);;
+  const { sortBy, category } = useSelector(selectFilters);
   const statuses = [
     { name: 'Planed', count: feedbacks.filter((item) => item.status === 'planned').length, color: '#F49F85' },
     { name: 'In Progress', count: feedbacks.filter((item) => item.status === 'in-progress').length, color: '#AD1FEA' },
@@ -37,7 +35,9 @@ const Home: React.FC<HomeType> = ({feedbacksData}) => {
 
   const suggestions = feedbacks.filter(item => item.status === 'suggestion');
 
-  
+  useEffect(() => {
+    dispatch(fetchFeedbacks({ sortBy, category }))
+  }, [sortBy, category]);
 
  
 

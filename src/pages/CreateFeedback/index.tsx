@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './CreateFeedback.module.scss';
 import { Button, PopUp } from '../../components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -6,10 +6,9 @@ import { useForm } from 'react-hook-form';
 import axios from '../../axios';
 
 
-type CreateFeedbackType = {
-}
 
-const CreateFeedback: React.FC<CreateFeedbackType> = () => {
+
+const CreateFeedback: React.FC = () => {
     const categorysList = [{ name: 'UI' }, { name: 'UX' }, { name: 'Enhancement' }, { name: 'Bug' }, { name: 'Feature' }];
     const statesList = [{ name: 'Suggestion' }, { name: 'Planned' }, { name: 'In-Progress' }, { name: 'Live' }];
     const navigate = useNavigate();
@@ -20,10 +19,25 @@ const CreateFeedback: React.FC<CreateFeedbackType> = () => {
             title: '',
             category: '',
             description: '',
-            featureState: ''
+            featureState: 'Suggestion'
         },
         mode: 'onBlur'
     });
+
+    useEffect(()=>{
+        if(id) {
+            axios.get(`/feedbacks/${id}`)
+            .then((res) => {
+                setValue('title', res.data.title);
+                setValue('category', res.data.category);
+                setValue('description', res.data.description);
+                setValue('featureState', res.data.featureState);
+            })
+            .catch((error) => {
+                console.warn('Failed to fetch feedback:', error);
+            })
+        }
+    }, [])
 
     const category = watch('category');
     const featureState = watch('featureState');
@@ -118,9 +132,7 @@ const CreateFeedback: React.FC<CreateFeedbackType> = () => {
                                 handleChooseItem={handleChooseState}
                                 list={statesList}
                                 className='category'
-                                {...register('category', {
-                                    required: 'Choose category'
-                                })}>
+                                >
 
                                 <span>{featureState}</span>
                             </PopUp>

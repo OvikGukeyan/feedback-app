@@ -4,28 +4,23 @@ import { SignUp, SignIn, CreateFeedback, FeedbackDetail, Home, Roadmap } from '.
 import { Route, Routes } from 'react-router-dom';
 import { useAppDispatch } from './redux/store';
 import { fetchAuthMe } from './redux/slices/auth/authSlice';
-import { fetchFeedbacks, selectFeedbacks } from './redux/slices/feedbacks/feedbacksSlice';
-import { useSelector } from 'react-redux';
-import { selectFilters } from './redux/slices/filters/filtersSlice';
+
 
 const  App:React.FC = () => {
   const dispatch = useAppDispatch();
-  const { sortBy, category } = useSelector(selectFilters);
-  const feedbacksData = useSelector(selectFeedbacks);
+  
 
 
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchFeedbacks({ sortBy, category }))
-  }, [sortBy, category]);
+  
 
   return (
     <div className="App">
       <Routes>
-        <Route element={<Home feedbacksData={feedbacksData}/>} path='/' />
+        <Route element={<Home/>} path='/' />
         <Route element={<FeedbackDetail />} path='/detail/:id' />
         <Route element={<CreateFeedback />} path='/create' />
         <Route element={<CreateFeedback/>} path='/edit/:id' />
