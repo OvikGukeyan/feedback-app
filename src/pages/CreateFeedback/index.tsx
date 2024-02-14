@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import styles from './CreateFeedback.module.scss';
 import { Button, PopUp } from '../../components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from '../../axios';
 
 
 type CreateFeedbackType = {
-    isEdit?: Boolean
 }
 
-const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
+const CreateFeedback: React.FC<CreateFeedbackType> = () => {
     const categorysList = [{ name: 'UI' }, { name: 'UX' }, { name: 'Enhancement' }, { name: 'Bug' }, { name: 'Feature' }];
     const statesList = [{ name: 'Suggestion' }, { name: 'Planned' }, { name: 'In-Progress' }, { name: 'Live' }];
-
-    const navigate = useNavigate()
-
-
+    const navigate = useNavigate();
+    const params = useParams();
+    const id = params.id ? params.id : '';
     const { register, handleSubmit, setError, formState: { errors, isValid }, setValue, watch } = useForm({
         defaultValues: {
             title: '',
@@ -38,25 +36,49 @@ const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
         setValue('featureState', item)
     };
 
-    const onSubmit = async(params: {
+    const handleDelete = async(id: string) => {
+        axios.delete(`/feedbacks/${id}`)
+        .then((res) => {
+            navigate('/')
+        })
+        .catch((error) => {
+            console.warn(error)
+            alert('Failed to delete feedback!')
+        })
+
+        
+    }
+    type paramsType = {
         title: string;
         category: string;
         description: string;
         featureState: string;
-    }) => {
+    }
+
+    const onSubmit = id ? async(params: paramsType) => {
+        await axios.patch(`/feedbacks/${id}`, params)
+        .then((res) => {
+            console.log(res.data)
+            navigate(`/detail/${id}`)})
+        .catch((error) => {
+            console.warn(error)
+            alert('Failed to edit!')
+        })
+    } : 
+    async(params: paramsType) => {
         await axios.post('/feedbacks', params)
         .then((res) => navigate(`/detail/${res.data._id}`))
         .catch((error) => {
             console.warn(error)
-            alert('Creating error!')
+            alert('Failed to create!')
         })
-    }
+    };
 
     return (
         <div className={styles.wrapper}>
             <Link to={'/'}><Button className='go_back'>Go Back</Button></Link>
             <div className={styles.create_feedback}>
-                {!isEdit ?
+                {!id ?
                     <>
                         <svg className={styles.logo} width="56" height="56" ><defs><radialGradient cx="103.9%" cy="-10.387%" fx="103.9%" fy="-10.387%" r="166.816%" id="a"><stop stopColor="#E84D70" offset="0%" /><stop stopColor="#A337F6" offset="53.089%" /><stop stopColor="#28A7ED" offset="100%" /></radialGradient></defs><g fill="none" fillRule="evenodd"><circle fill="url(#a)" cx="28" cy="28" r="28" /><path fill="#FFF" fillRule="nonzero" d="M30.343 36v-5.834h5.686v-4.302h-5.686V20h-4.597v5.864H20v4.302h5.746V36z" /></g></svg>
                         <h1>Create New Feedback</h1>
@@ -87,7 +109,7 @@ const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
                             <span>{category}</span>
                         </PopUp>
                     </div>
-                    {isEdit &&
+                    {id &&
                         <div className={styles.category}>
                             <h4>Update Status</h4>
                             <p>Change feedback state</p>
@@ -111,8 +133,8 @@ const CreateFeedback: React.FC<CreateFeedbackType> = ({ isEdit }) => {
                         },)}></textarea>
                     </div>
                     <div className={styles.buttons}>
-                        {isEdit &&
-                            <Button className='delete'>Delete</Button>
+                        {id &&
+                            <Button onClick={() => handleDelete(id)}  className='delete'>Delete</Button>
                         }
 
                         <div className={styles.box}>

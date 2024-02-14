@@ -33,7 +33,6 @@ const FeedbackDetail: React.FC = () => {
     }, [])
 
     const commentsNumber = comments ? countCommentsNumber(comments) : 0;
-
    
 
    

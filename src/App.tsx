@@ -28,7 +28,7 @@ const  App:React.FC = () => {
         <Route element={<Home feedbacksData={feedbacksData}/>} path='/' />
         <Route element={<FeedbackDetail />} path='/detail/:id' />
         <Route element={<CreateFeedback />} path='/create' />
-        <Route element={<CreateFeedback isEdit/>} path='/edit/:id' />
+        <Route element={<CreateFeedback/>} path='/edit/:id' />
         <Route element={<Roadmap />} path='/roadmap' />
         <Route element={<SignIn />} path='/login' />
         <Route element={<SignUp />} path='/register' />

@@ -16,9 +16,9 @@ const SignUp: React.FC = () => {
     const { register, handleSubmit, setValue, setError, formState: { errors, isValid }, watch } = useForm({
         defaultValues: {
             avatarUrl: '',
-            fullName: 'Jhony',
-            userName: 'jhonFrank',
-            email: 'jjfkdnkjfv@gmail.com',
+            fullName: 'Test',
+            userName: 'Test Test',
+            email: 'test@gmail.com',
             password: '12345'
         },
         mode: 'onBlur'
@@ -34,6 +34,7 @@ const SignUp: React.FC = () => {
     }
 
     const onSubmit = async (values: RegisterParamsType) => {
+        
         const data = await dispatch(fetchRegister(values)) as FetchLoginResponse;
         if (data.payload) {
             window.localStorage.setItem('token', data.payload.token)

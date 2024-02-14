@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "../../../axios";
 import { RootState } from "../../store";
-import { Url } from "url";
 
 export type LoginParamsType = {
     email: string,
@@ -13,6 +12,7 @@ export type RegisterParamsType = {
     userName: string
     email: string
     password: string
+    avatarUrl?: string 
 }
 
 export const fetchRegister = createAsyncThunk<UserDataType, RegisterParamsType>('auth/fetchRegister', async (params) => {
