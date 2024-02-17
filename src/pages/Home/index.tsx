@@ -32,8 +32,7 @@ const Home: React.FC = () => {
   ];
 
 
-
-  const suggestions = feedbacks.filter(item => item.status === 'suggestion');
+  const suggestions = feedbacks.filter(item => item.status === 'Suggestion');
 
   useEffect(() => {
     dispatch(fetchFeedbacks({ sortBy, category }))

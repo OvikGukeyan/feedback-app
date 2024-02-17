@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styles from './CreateFeedback.module.scss';
 import { Button, PopUp } from '../../components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import axios from '../../axios';
+import { title } from 'process';
 
 
 
@@ -14,79 +15,83 @@ const CreateFeedback: React.FC = () => {
     const navigate = useNavigate();
     const params = useParams();
     const id = params.id ? params.id : '';
-    const { register, handleSubmit, setError, formState: { errors, isValid }, setValue, watch } = useForm({
+    const { register, handleSubmit, formState: { errors, isValid }, setValue, watch, trigger, control } = useForm({
         defaultValues: {
             title: '',
-            category: '',
+            category: 'UI',
             description: '',
-            featureState: 'Suggestion'
+            status: ''
         },
-        mode: 'onBlur'
+        mode: 'all'
     });
 
-    useEffect(()=>{
-        if(id) {
+    useEffect(() => {
+        if (id) {
             axios.get(`/feedbacks/${id}`)
-            .then((res) => {
-                setValue('title', res.data.title);
-                setValue('category', res.data.category);
-                setValue('description', res.data.description);
-                setValue('featureState', res.data.featureState);
-            })
-            .catch((error) => {
-                console.warn('Failed to fetch feedback:', error);
-            })
+                .then((res) => {
+                    setValue('title', res.data.title);
+                    setValue('category', res.data.category);
+                    setValue('description', res.data.description);
+                    setValue('status', res.data.status);
+                    trigger();
+                })
+                .catch((error) => {
+                    console.warn('Failed to fetch feedback:', error);
+                })
         }
     }, [])
 
     const category = watch('category');
-    const featureState = watch('featureState');
+    const status = watch('status');
+
 
     const handleChooseCategory = (item: string) => {
         setValue('category', item)
     };
 
     const handleChooseState = (item: string) => {
-        setValue('featureState', item)
+        setValue('status', item)
     };
 
-    const handleDelete = async(id: string) => {
+    const handleDelete = async (id: string) => {
         axios.delete(`/feedbacks/${id}`)
-        .then((res) => {
-            navigate('/')
-        })
-        .catch((error) => {
-            console.warn(error)
-            alert('Failed to delete feedback!')
-        })
+            .then((res) => {
+                navigate('/')
+            })
+            .catch((error) => {
+                console.warn(error)
+                alert('Failed to delete feedback!')
+            })
 
-        
+
     }
-    type paramsType = {
+    type ParamsType = {
         title: string;
         category: string;
         description: string;
-        featureState: string;
+        status: string;
     }
 
-    const onSubmit = id ? async(params: paramsType) => {
+
+    const onSubmit = id ? async (params: ParamsType) => {
         await axios.patch(`/feedbacks/${id}`, params)
-        .then((res) => {
-            console.log(res.data)
-            navigate(`/detail/${id}`)})
-        .catch((error) => {
-            console.warn(error)
-            alert('Failed to edit!')
-        })
-    } : 
-    async(params: paramsType) => {
-        await axios.post('/feedbacks', params)
-        .then((res) => navigate(`/detail/${res.data._id}`))
-        .catch((error) => {
-            console.warn(error)
-            alert('Failed to create!')
-        })
-    };
+            .then((res) => {
+                console.log(res.data)
+                navigate(`/detail/${id}`)
+            })
+            .catch((error) => {
+                console.warn(error)
+                alert('Failed to edit!')
+            })
+    } :
+        async (params: ParamsType) => {
+            await axios.post('/feedbacks', params)
+                .then((res) => navigate(`/detail/${res.data._id}`))
+                .catch((error) => {
+                    console.warn(error)
+                    alert('Failed to create!')
+                })
+        };
 
     return (
         <div className={styles.wrapper}>
@@ -105,7 +110,7 @@ const CreateFeedback: React.FC = () => {
                 }
                 <form onSubmit={handleSubmit(onSubmit)} action="">
                     <div className={styles.feedback_title}>
-                        <label htmlFor="title">Feedback Title <span>Add a short, descriptive headline</span></label>
+                        <label htmlFor="title">Feedback Title <span className={errors.title && styles.instruction}>Add a short, descriptive headline</span></label>
                         <input className={errors.title && styles.input_error}  {...register('title', {
                             required: 'Enter title',
                         },)} />
@@ -113,7 +118,7 @@ const CreateFeedback: React.FC = () => {
 
                     <div className={styles.category}>
                         <h4>Category</h4>
-                        <p>Choose a category for your feedback</p>
+                        <p className={errors.category && styles.instruction}>Choose a category for your feedback</p>
                         <PopUp
                             active={category}
                             handleChooseItem={handleChooseCategory}
@@ -126,27 +131,28 @@ const CreateFeedback: React.FC = () => {
                     {id &&
                         <div className={styles.category}>
                             <h4>Update Status</h4>
-                            <p>Change feedback state</p>
+                            <p className={errors.status && styles.instruction}>Change feedback state</p>
                             <PopUp
-                                active={featureState}
+                                active={status}
                                 handleChooseItem={handleChooseState}
                                 list={statesList}
                                 className='category'
-                                >
+                            >
 
-                                <span>{featureState}</span>
+                                <span>{status}</span>
                             </PopUp>
                         </div>
                     }
-                    <div className={styles.detail}>
-                        <label htmlFor="description">Feedback Detail <span>Include any specific comments on what should be improved, added, etc.</span></label>
+                    
+                    <div className={styles.description}>
+                        <label htmlFor="description">Feedback Detail <span className={errors.description && styles.instruction}>Include any specific comments on what should be improved, added, etc.</span></label>
                         <textarea className={errors.description && styles.input_error} {...register('description', {
                             required: 'Enter description',
-                        },)}></textarea>
+                        },)}/>
                     </div>
                     <div className={styles.buttons}>
                         {id &&
-                            <Button onClick={() => handleDelete(id)}  className='delete'>Delete</Button>
+                            <Button onClick={() => handleDelete(id)} className='delete'>Delete</Button>
                         }
 
                         <div className={styles.box}>
@@ -156,6 +162,8 @@ const CreateFeedback: React.FC = () => {
 
                     </div>
                 </form>
+
+
             </div>
         </div>
     )

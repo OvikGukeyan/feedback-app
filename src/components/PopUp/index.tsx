@@ -1,6 +1,5 @@
-import React, { Children, useEffect, useRef, useState, Ref } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './PopUp.module.scss';
-import { UseFormRegister } from 'react-hook-form';
 
 type PopUpTypes = {
     children: any
@@ -18,13 +17,13 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseIt
     const sortRef = useRef<HTMLDivElement>(null);
 
 
-
     const handleOutsideClick = (e: MouseEvent) => {
         if (sortRef.current) {
             if (!sortRef.current.contains(e.target as Node)) {
                 setVisiblePopup(false);
             }
         }
+
     }
 
     useEffect(() => {

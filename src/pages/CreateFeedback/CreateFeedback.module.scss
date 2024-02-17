@@ -16,7 +16,7 @@
 
         .logo {
             margin: -58px 0 30px 0;
-            
+
 
         }
 
@@ -26,7 +26,9 @@
 
         form {
 
-            .feedback_title, .detail {
+            .feedback_title,
+            .description,
+            .category {
                 label {
                     display: flex;
                     flex-direction: column;
@@ -47,7 +49,7 @@
                     margin: 15px 0 30px 0;
                     padding: 20px;
 
-                    
+
                     &:focus {
                         outline: none;
                         border: 1px solid #4661E6;
@@ -55,7 +57,7 @@
 
                 }
 
-                
+
 
                 textarea {
                     width: 100%;
@@ -66,12 +68,12 @@
                     border-radius: 10px;
                     margin-top: 15px;
                     padding: 20px;
-        
+
                     &::-webkit-scrollbar {
                         width: 0;
                         height: 0;
                     }
-        
+
                     &:focus {
                         outline: none;
                         border: 1px solid #4661E6;
@@ -80,6 +82,10 @@
 
                 .input_error {
                     border: 1px solid #D73737;
+                }
+
+                .instruction {
+                    color: #D73737;
                 }
             }
 
@@ -90,56 +96,58 @@
                     font-size: 14px;
                     font-weight: 700;
                 }
+
                 p {
                     font-size: 14px;
                     font-weight: 400;
                     margin-bottom: 15px;
                 }
 
-                
-                
+
+
             }
 
-           
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-
-            .box {
+            .buttons {
                 display: flex;
-                justify-content: end;
-                width: 100%;
+                justify-content: space-between;
+                margin-top: 30px;
 
-                .submit {
-                    background-color: #AD1FEA;
-                    color: #fff;
-                    min-width: 160px;
-                    font-size: 14px;
-                    font-weight: 700;
-                    height: 45px;
-                    border: none;
-                    border-radius: 10px;
-                    cursor: pointer;
+                .box {
+                    display: flex;
+                    justify-content: end;
+                    width: 100%;
 
-                    &:disabled {
-                        pointer-events: none;
-                        opacity: 0.4;
+                    .submit {
+                        background-color: #AD1FEA;
+                        color: #fff;
+                        min-width: 160px;
+                        font-size: 14px;
+                        font-weight: 700;
+                        height: 45px;
+                        border: none;
+                        border-radius: 10px;
+                        cursor: pointer;
+
+                        &:disabled {
+                            pointer-events: none;
+                            opacity: 0.4;
+                        }
+
+
+                        &:hover {
+                            background-color: #C75AF6;
+                        }
                     }
 
-
-                    &:hover {
-                        background-color: #C75AF6;
-                    }
-                }
-                div {
-                    &:first-child {
-                        margin-right: 20px;
+                    div {
+                        &:first-child {
+                            margin-right: 20px;
+                        }
                     }
                 }
             }
         }
+
+        
     }
 }

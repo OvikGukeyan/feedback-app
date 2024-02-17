@@ -7,14 +7,14 @@ type FullCommentType = {
     comment: Comment
 }
 
-const FullComment: React.FC<FullCommentType> = ({comment}) => {
-    
-    
+const FullComment: React.FC<FullCommentType> = ({ comment }) => {
+
+
     return (
         <div className={styles.comment}>
             <div className={styles.comment_head}>
                 <div className={styles.img}>
-                    <img src={comment.user?.avatarUrl} alt="" />
+                    <img src={`http://localhost:4444${comment.user?.avatarUrl}`} alt="" />
                 </div>
                 <div className={styles.names}>
                     <h4>{comment.user.fullName}</h4>
@@ -26,28 +26,31 @@ const FullComment: React.FC<FullCommentType> = ({comment}) => {
                 <p className={styles.text}>{comment.content}</p>
                 {comment.replies && comment.replies.map(item => (
                     <div className={`${styles.comment} ${styles.reply}`}>
-                    <div className={styles.comment_head}>
-                        <div className={styles.img}>
-                            <img src={item.user.avatarUrl} alt="" />
+                        <div className={styles.comment_head}>
+                            <div className={styles.img}>
+                            <img src={`http://localhost:4444${item.user.avatarUrl}`} alt="" />
+                            </div>
+                            <div className={styles.names}>
+                                <h4>{item.user.fullName}</h4>
+                                <p>@{item.user.userName}</p>
+                            </div>
+                            <Button className='view_roadmap'>Reply</Button>
                         </div>
-                        <div className={styles.names}>
-                            <h4>{item.user.fullName}</h4>
-                            <p>@{item.user.userName}</p>
+                        <div className={styles.content}>
+                            <p className={styles.text}>
+                                {/* <span>@{item.replyingTo}</span> */}
+                                {item.content}
+                            </p>
+
                         </div>
-                        <Button className='view_roadmap'>Reply</Button>
-                    </div>
-                    <div className={styles.content}>
-                        <p className={styles.text}> <span>@{item.replyingTo}</span>{item.content}</p>
 
                     </div>
-
-                </div>
                 ))}
-                
+
             </div>
 
         </div>
     )
-}
+};
 
 export default FullComment;

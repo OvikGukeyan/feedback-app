@@ -38,7 +38,6 @@ export type UserDataType = {
     email: string;
     createdAt: string;
     updatedAt: string;
-    __v: number;
     token: string;
     avatarUrl?: string
 }

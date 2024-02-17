@@ -20,21 +20,26 @@ export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], OptionsType>('fee
 
 
 
-
-
-
-export type Comment = {
-    id: number
-    content: string
-    user: UserDataType
-    replies?: Reply[]
-};
-
 type Reply = {
-    content: string
+    _id: string;
+    content: string;
+    user: UserDataType;
+    createdAt: string;
+    updatedAt: string;
     replyingTo: string
-    user: UserDataType
-};
+  }
+  
+  export type Comment = {
+    _id: string;
+    content: string;
+    user: UserDataType;
+    createdAt: string;
+    updatedAt: string;
+    replies?: Reply[];
+  }
+
+
+
 
 export type FeedbackItem = {
     _id: number
