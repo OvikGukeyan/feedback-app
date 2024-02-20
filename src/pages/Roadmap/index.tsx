@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './Roadmap.module.scss';
 import { Button } from '../../components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { FeedbackItem, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { FeedbackItem } from '../../redux/slices/feedbacks/types';
 
 const Roadmap: React.FC = () => {
     const { feedbacks } = useSelector(selectFeedbacks);

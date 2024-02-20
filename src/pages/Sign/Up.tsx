@@ -15,7 +15,7 @@ const SignUp: React.FC = () => {
     const inputFileRef = useRef<HTMLInputElement | null>(null);
     const { register, handleSubmit, setValue, setError, formState: { errors, isValid }, watch } = useForm({
         defaultValues: {
-            avatarUrl: '',
+            avatarUrl: '/uploads/default_avatar.png',
             fullName: 'Test',
             userName: 'Test Test',
             email: 'test@gmail.com',

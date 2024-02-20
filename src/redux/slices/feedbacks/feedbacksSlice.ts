@@ -1,69 +1,35 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../../axios";
 import { RootState } from "../../store";
-import { sortByType } from "../filters/filtersSlice";
-import { UserDataType } from "../auth/authSlice";
+import { Comment, FeedbackItem, FeedbacksSliceState, FetchFeedbacksOptionsType, PostCommentOptionsType, PostReplyOptionsType } from "./types";
 
-export type OptionsType = {
-    sortBy: sortByType
-    category: string | null
-}
 
-export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], OptionsType>('feedbacks/fetchFeedbacks', async ({sortBy, category}) => {
+
+export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], FetchFeedbacksOptionsType>('feedbacks/fetchFeedbacks', async ({ sortBy, category }) => {
     const { data } = await axios.get('/feedbacks');
-    // const { data } = await axios.get(`https://64fa17ff4098a7f2fc156145.mockapi.io/feedbacks?sortBy=${sortBy.type}&order=${sortBy.order}&${category !== 'ALL' ? `category=${category}` : ''}`);
+    return data
+});
+
+export const fetchOneFeedback = createAsyncThunk<FeedbackItem, string>('feedbacks/fetchOneFeedback', async (id) => {
+    const { data } = await axios.get(`/feedbacks/${id}`);
     return data
 });
 
 
+export const postComment = createAsyncThunk<FeedbackItem, PostCommentOptionsType>('feedbacks/postComment', async ({ id, options }) => {
+    const { data } = await axios.post(`/feedbacks/${id}/comments`, options);
+    return data.updatedFeedback
+});
 
+export const postReply = createAsyncThunk<Comment, PostReplyOptionsType>('feedbacks/postReply', async ({ id, options }) => {
+    const { data } = await axios.post(`/comments/${id}/replies`, options);
+    return data.updatedComment
+});
 
-
-
-type Reply = {
-    _id: string;
-    content: string;
-    user: UserDataType;
-    createdAt: string;
-    updatedAt: string;
-    replyingTo: string
-  }
-  
-  export type Comment = {
-    _id: string;
-    content: string;
-    user: UserDataType;
-    createdAt: string;
-    updatedAt: string;
-    replies?: Reply[];
-  }
-
-
-
-
-export type FeedbackItem = {
-    _id: number
-    title: string
-    description: string
-    upvotes: number
-    category: string
-    status: string
-    user: UserDataType
-    comments?: Comment[]
-    createdAt: string
-    updatedAt: string
-    __v: number
-};
-
-
-export interface FeedbacksSliceState {
-    feedbacks: FeedbackItem[]
-    isLoading: boolean
-    loadingRejected: boolean
-}
 
 const initialState: FeedbacksSliceState = {
     feedbacks: [],
+    curentFeedback: null,
     isLoading: false,
     loadingRejected: false,
 }
@@ -75,21 +41,66 @@ const feedbacksSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchFeedbacks.pending, (state) => {
-            state.feedbacks = [];
-            state.isLoading = true;
-            state.loadingRejected = false;
-        });
-        builder.addCase(fetchFeedbacks.fulfilled, (state, action) => {
-            state.feedbacks = action.payload;
-            state.isLoading = false;
-            state.loadingRejected = false;
-        });
-        builder.addCase(fetchFeedbacks.rejected, (state) => {
-            state.feedbacks = [];
-            state.isLoading = false;
-            state.loadingRejected = true;
-        })
+        builder
+            .addCase(fetchFeedbacks.pending, (state) => {
+                state.feedbacks = [];
+                state.isLoading = true;
+                state.loadingRejected = false;
+            })
+            .addCase(fetchFeedbacks.fulfilled, (state, action) => {
+                state.feedbacks = action.payload;
+                state.isLoading = false;
+                state.loadingRejected = false;
+            })
+            .addCase(fetchFeedbacks.rejected, (state) => {
+                state.feedbacks = [];
+                state.isLoading = false;
+                state.loadingRejected = true;
+            })
+            .addCase(postComment.pending, (state) => {
+                state.isLoading = true;
+                state.loadingRejected = false;
+            })
+            .addCase(postComment.fulfilled, (state, action) => {
+                state.curentFeedback = action.payload
+            })
+            .addCase(postComment.rejected, (state) => {
+                state.feedbacks = [];
+                state.isLoading = false;
+                state.loadingRejected = true;
+            })
+            .addCase(fetchOneFeedback.pending, (state) => {
+                state.curentFeedback = null;
+                state.isLoading = true;
+                state.loadingRejected = false;
+            })
+            .addCase(fetchOneFeedback.fulfilled, (state, action) => {
+                state.curentFeedback = action.payload;
+                state.isLoading = false;
+                state.loadingRejected = false;
+            })
+            .addCase(fetchOneFeedback.rejected, (state) => {
+                state.feedbacks = [];
+                state.isLoading = false;
+                state.loadingRejected = true;
+            })
+            .addCase(postReply.pending, (state) => {
+                state.isLoading = true;
+                state.loadingRejected = false;
+            })
+            .addCase(postReply.fulfilled, (state, action) => {
+                if (state.curentFeedback?.comments?.length) {
+                    const index = state.curentFeedback.comments?.findIndex((obj) => obj._id === action.payload._id);
+                    state.curentFeedback.comments[index] = action.payload;
+                }
+                state.isLoading = false;
+                state.loadingRejected = false;
+            })
+            .addCase(postReply.rejected, (state) => {
+                state.feedbacks = [];
+                state.isLoading = false;
+                state.loadingRejected = true;
+            })
     }
 });
 

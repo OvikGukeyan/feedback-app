@@ -1,23 +1,30 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import styles from './FeedbackDetail.module.scss';
-import { Button, FullComment, Item } from '../../components';
-import { Comment, FeedbackItem } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { Link, useParams } from 'react-router-dom';
-import axios from '../../axios';
-import ItemLoader from '../../components/Item/ItemLoader';
 import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../../redux/store';
+
+import { Button, FullComment, Item } from '../../components';
+import { fetchOneFeedback, postComment, postReply, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import ItemLoader from '../../components/Item/ItemLoader';
 import { selectIsAuth } from '../../redux/slices/auth/authSlice';
+import { Comment } from '../../redux/slices/feedbacks/types';
 
 
 const FeedbackDetail: React.FC = () => {
     const params = useParams();
-    const { data } = useSelector(selectIsAuth);
-    const [curentFeedback, setCurentFeedback] = useState<FeedbackItem>();
-    const [commentText, setCommentText] = useState('');
+    const dispatch = useAppDispatch();
 
+    const { data } = useSelector(selectIsAuth);
+    const { curentFeedback } = useSelector(selectFeedbacks)
+
+    const [commentText, setCommentText] = useState('');
+    const [replyText, setReplyText] = useState('');
+    const [replyId, setReplyId] = useState('');
 
     const isEditable = data?._id === curentFeedback?.user._id;
     const comments = curentFeedback?.comments;
+
     const countCommentsNumber = (com: Comment[]) => {
         const commentsNumber = com?.length ? com.length : 0;
         const replies = com?.reduce((acu, item) => item?.replies ? acu + item.replies.length : acu + 0, 0);
@@ -25,25 +32,43 @@ const FeedbackDetail: React.FC = () => {
     };
 
     useEffect(() => {
-        axios.get(`/feedbacks/${params.id}`)
-            .then((res) => {
-                setCurentFeedback(res.data);
-            })
-            .catch((error) => {
-                console.warn(error)
-                alert('Error getting article!')
-            })
+        params.id &&
+            dispatch(fetchOneFeedback(params.id))
     }, []);
 
     const handleCommentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const newText = event.target.value;
-        if(newText.length <= 255) {
+        if (newText.length <= 255) {
             setCommentText(event.target.value);
         }
-        
+    };
 
-    }
-    
+    const handleSubmitComment = () => {
+        if (curentFeedback?._id) {
+            const params = {
+                id: curentFeedback?._id,
+                options: {
+                    content: commentText
+                }
+            }
+            dispatch(postComment(params))
+            setCommentText('');
+        }
+    };
+
+    const handleSubmitReply = (id: string, replyingTo: string) => {
+        const params = {
+            id,
+            options: {
+                content: replyText,
+                replyingTo: replyingTo
+            }
+        }
+        dispatch(postReply(params))
+        setReplyText('');
+        setReplyId('');
+    };
+
 
     const commentsNumber = comments ? countCommentsNumber(comments) : 0;
 
@@ -62,16 +87,23 @@ const FeedbackDetail: React.FC = () => {
                 {commentsNumber ? <h2>{commentsNumber} Comments</h2> : <h2> This feedback has no comments yet </h2>}
                 {comments &&
                     comments.map((item, ind) => (
-                        <FullComment key={ind} comment={item} />
+                        <FullComment
+                            replyText={replyText}
+                            replyId={replyId}
+                            setReplyId={setReplyId}
+                            setReplyText={setReplyText}
+                            key={ind}
+                            comment={item}
+                            handleSubmitReply={handleSubmitReply} />
                     ))
                 }
             </div>
             <div className={styles.add_comment}>
                 <h2>Add Comment</h2>
-                <textarea value={commentText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here'/>
+                <textarea value={commentText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
                 <div className={styles.wrapper}>
                     <p><span>{255 - commentText.length}</span> Characters left</p>
-                    <Button className='add_button'>Post Comment</Button>
+                    <Button onClick={handleSubmitComment} className='add_button'>Post Comment</Button>
                 </div>
             </div>
         </div>

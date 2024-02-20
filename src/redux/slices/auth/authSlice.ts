@@ -81,9 +81,11 @@ const authSlice = createSlice({
             .addCase(fetchLogin.pending, handlePending)
             .addCase(fetchLogin.fulfilled, handleRequest)
             .addCase(fetchLogin.rejected, handleRejected)
+
             .addCase(fetchAuthMe.pending, handlePending)
             .addCase(fetchAuthMe.fulfilled, handleRequest)
             .addCase(fetchAuthMe.rejected, handleRejected)
+            
             .addCase(fetchRegister.pending, handlePending)
             .addCase(fetchRegister.fulfilled, handleRequest)
             .addCase(fetchRegister.rejected, handleRejected);

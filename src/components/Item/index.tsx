@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './Item.module.scss';
 import Button from '../Button';
-import { FeedbackItem } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { FeedbackItem } from '../../redux/slices/feedbacks/types';
 
 type ItemType = {
     item: FeedbackItem,
-    handleFeedbackCliick?: (id:number)=>void
+    handleFeedbackCliick?: (id:string)=>void
 }
 
 const Item: React.FC<ItemType> = ({item, handleFeedbackCliick}) => {
