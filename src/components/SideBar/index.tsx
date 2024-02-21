@@ -14,13 +14,13 @@ type SideBarTypes = {
 };
 
 const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
-    const categorys = ['ALL', 'UI', 'UX', 'Enhancement', 'Bug', 'Feature'];
-    const { category } = useSelector(selectFilters);
+    const categorys = ['UI', 'UX', 'Enhancement', 'Bug', 'Feature'];
+    const { filter } = useSelector(selectFilters);
     const dispatch = useDispatch();
 
-   
 
-    const handleChooseCategory = (cat: string) => {
+
+    const handleChooseCategory = (cat: string | null) => {
         dispatch(setCategory(cat))
     }
 
@@ -31,13 +31,14 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
                 <p>Feedback Board</p>
             </div>
             <div className={styles.categorys}>
-                {categorys.map((i) => (<Button key={i} onClick={() => handleChooseCategory(i)} className={category === i ? 'category_button_active' : 'category_button'}>{i}</Button>))}
+                <Button onClick={() => handleChooseCategory(null)} className={!filter.status ? 'category_button_active' : 'category_button'}>ALL</Button>
+                {categorys.map((i) => (<Button key={i} onClick={() => handleChooseCategory(i)} className={filter.status === i ? 'category_button_active' : 'category_button'}>{i}</Button>))}
             </div>
             <div className={styles.roadmap}>
                 <div className={styles.title}>
                     <h2>Roadmap</h2>
                     <Link to={'/roadmap'}><Button className='view_roadmap'>View</Button></Link>
-                    
+
                 </div>
 
                 <ul>

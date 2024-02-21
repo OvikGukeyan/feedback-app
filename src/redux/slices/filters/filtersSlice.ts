@@ -7,14 +7,22 @@ export type SortByType = {
     order: string
 }
 
-interface FilterSliceState {
+export type FilterType = {
     category: string | null
+    status: string | null
+}
+
+interface FilterSliceState {
+    filter: FilterType
     sortBy: SortByType 
     searchValue: string
 }
 
 const initialState: FilterSliceState = {
-    category: 'ALL',
+    filter: {
+        category: 'category',
+        status: null
+    },
     sortBy: { name: 'Most Upvotes', type: 'upvotes', order: 'desc' },
     searchValue: '',
 }
@@ -24,7 +32,7 @@ const filterSlice = createSlice({
     initialState,
     reducers: {
         setCategory: (state, action) => {
-            state.category = action.payload
+            state.filter.status = action.payload;
         },
         setSortBy: (state, action) => {
             state.sortBy = action.payload

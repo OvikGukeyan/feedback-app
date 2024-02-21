@@ -18,7 +18,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const isAuth = Boolean(useSelector(selectIsAuth).data);
   const {feedbacks, isLoading, loadingRejected} = useSelector(selectFeedbacks);;
-  const { sortBy, category } = useSelector(selectFilters);
+  const { sortBy, filter } = useSelector(selectFilters);
   const statuses = [
     { name: 'Planed', count: feedbacks.filter((item) => item.status === 'planned').length, color: '#F49F85' },
     { name: 'In Progress', count: feedbacks.filter((item) => item.status === 'in-progress').length, color: '#AD1FEA' },
@@ -37,8 +37,8 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     
-    dispatch(fetchFeedbacks({sortBy, category}))
-  }, [sortBy, category]);
+    dispatch(fetchFeedbacks({sortBy, filter}))
+  }, [sortBy, filter]);
 
  
 

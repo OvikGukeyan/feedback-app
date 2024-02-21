@@ -16,14 +16,14 @@ const FeedbackDetail: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const { data } = useSelector(selectIsAuth);
-    const { curentFeedback } = useSelector(selectFeedbacks)
+    const { currentFeedback } = useSelector(selectFeedbacks)
 
     const [commentText, setCommentText] = useState('');
     const [replyText, setReplyText] = useState('');
     const [replyId, setReplyId] = useState('');
 
-    const isEditable = data?._id === curentFeedback?.user._id;
-    const comments = curentFeedback?.comments;
+    const isEditable = data?._id === currentFeedback?.user._id;
+    const comments = currentFeedback?.comments;
 
     
 
@@ -40,9 +40,9 @@ const FeedbackDetail: React.FC = () => {
     };
 
     const handleSubmitComment = () => {
-        if (curentFeedback?._id) {
+        if (currentFeedback?._id) {
             const params = {
-                id: curentFeedback?._id,
+                id: currentFeedback?._id,
                 options: {
                     content: commentText
                 }
@@ -76,11 +76,11 @@ const FeedbackDetail: React.FC = () => {
             <div className={styles.head}>
                 <Link to={'/'}><Button className='go_back'>Go Back</Button></Link>
 
-                {isEditable && <Link to={`/edit/${curentFeedback?._id}`}><Button className='edit'>Edit Feedback</Button></Link>}
+                {isEditable && <Link to={`/edit/${currentFeedback?._id}`}><Button className='edit'>Edit Feedback</Button></Link>}
             </div>
-            {curentFeedback ? <Item item={curentFeedback} /> : <ItemLoader />}
+            {currentFeedback ? <Item item={currentFeedback} /> : <ItemLoader />}
             <div className={styles.comments}>
-                {curentFeedback ? <h2>{curentFeedback.commentsCount} Comments</h2> : <h2> This feedback has no comments yet </h2>}
+                {currentFeedback ? <h2>{currentFeedback.commentsCount} Comments</h2> : <h2> This feedback has no comments yet </h2>}
                 {comments &&
                     comments.map((item, ind) => (
                         <FullComment

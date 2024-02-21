@@ -17,8 +17,8 @@ type FullCommentType = {
 }
 
 const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setReplyId, replyId, replyText, handleSubmitReply }) => {
-    const { curentFeedback } = useSelector(selectFeedbacks);
-    const feedbackId = curentFeedback?._id ? curentFeedback?._id : '';
+    const { currentFeedback } = useSelector(selectFeedbacks);
+    const feedbackId = currentFeedback?._id ? currentFeedback?._id : '';
 
     const handleCommentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const newText = event.target.value;

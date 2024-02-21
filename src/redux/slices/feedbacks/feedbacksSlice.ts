@@ -8,7 +8,7 @@ import { Comment, FeedbackItem, FeedbacksSliceState, FetchFeedbacksOptionsType, 
 
 
 export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], FetchFeedbacksOptionsType>('feedbacks/fetchFeedbacks', async (options) => {
-        const { data } = await axios.get(`/feedbacks?sortBy=${options.sortBy.type}&sortOrder=${options.sortBy.order}`);
+        const { data } = await axios.get(`/feedbacks?sortBy=${options.sortBy.type}&sortOrder=${options.sortBy.order}&${options.filter.status ? `category=${options.filter.category}&status=${options.filter.status}` : ''}`);
         return data;
     }
 );
@@ -32,7 +32,7 @@ export const postReply = createAsyncThunk<Comment, PostReplyOptionsType>('feedba
 
 const initialState: FeedbacksSliceState = {
     feedbacks: [],
-    curentFeedback: null,
+    currentFeedback: null,
     isLoading: false,
     loadingRejected: false,
 }
@@ -65,7 +65,7 @@ const feedbacksSlice = createSlice({
                 state.loadingRejected = false;
             })
             .addCase(postComment.fulfilled, (state, action) => {
-                state.curentFeedback = action.payload
+                state.currentFeedback = action.payload
             })
             .addCase(postComment.rejected, (state) => {
                 state.feedbacks = [];
@@ -73,12 +73,12 @@ const feedbacksSlice = createSlice({
                 state.loadingRejected = true;
             })
             .addCase(fetchOneFeedback.pending, (state) => {
-                state.curentFeedback = null;
+                state.currentFeedback = null;
                 state.isLoading = true;
                 state.loadingRejected = false;
             })
             .addCase(fetchOneFeedback.fulfilled, (state, action) => {
-                state.curentFeedback = action.payload;
+                state.currentFeedback = action.payload;
                 state.isLoading = false;
                 state.loadingRejected = false;
             })
@@ -92,9 +92,9 @@ const feedbacksSlice = createSlice({
                 state.loadingRejected = false;
             })
             .addCase(postReply.fulfilled, (state, action) => {
-                if (state.curentFeedback?.comments?.length) {
-                    const index = state.curentFeedback.comments?.findIndex((obj) => obj._id === action.payload._id);
-                    state.curentFeedback.comments[index] = action.payload;
+                if (state.currentFeedback?.comments?.length) {
+                    const index = state.currentFeedback.comments?.findIndex((obj) => obj._id === action.payload._id);
+                    state.currentFeedback.comments[index] = action.payload;
                 }
                 state.isLoading = false;
                 state.loadingRejected = false;
