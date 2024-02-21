@@ -1,8 +1,11 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import styles from './Comment.module.scss';
 
 import { Button } from '..';
 import { Comment } from '../../redux/slices/feedbacks/types';
+import { useSelector } from 'react-redux';
+import { selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { current } from '@reduxjs/toolkit';
 
 type FullCommentType = {
     comment: Comment
@@ -10,11 +13,12 @@ type FullCommentType = {
     setReplyId: (arg0: string) => void
     replyId: string
     replyText: string
-    handleSubmitReply: (id: string, replyingTo: string) => void
+    handleSubmitReply: (feedbackId: string, commentId: string, replyingTo: string) => void
 }
 
 const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setReplyId, replyId, replyText, handleSubmitReply }) => {
-
+    const { curentFeedback } = useSelector(selectFeedbacks);
+    const feedbackId = curentFeedback?._id ? curentFeedback?._id : '';
 
     const handleCommentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const newText = event.target.value;
@@ -49,7 +53,7 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setRepl
                 <p className={styles.text}>{comment.content}</p>
                 <div className={replyId === comment._id ? styles.reply_input : styles.hide}>
                     <textarea value={replyText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
-                    <Button onClick={() => handleSubmitReply(comment._id, comment.user.userName)} className={'add_button'}>Post Reply</Button>
+                    <Button onClick={() => handleSubmitReply(feedbackId, comment._id, comment.user.userName)} className={'add_button'}>Post Reply</Button>
                 </div>
                 {comment.replies && comment.replies.map(item => (
                     <div className={`${styles.comment} ${styles.reply}`}>
@@ -69,7 +73,7 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setRepl
                                 {item.content}
                                 <div className={replyId === item._id ? styles.reply_input : styles.hide}>
                                     <textarea value={replyText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
-                                    <Button onClick={() => handleSubmitReply(comment._id, comment.user.userName)} className={'add_button'}>Post Reply</Button>
+                                    <Button onClick={() => handleSubmitReply(feedbackId, comment._id, comment.user.userName)} className={'add_button'}>Post Reply</Button>
                                 </div>
                             </p>
 

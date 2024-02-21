@@ -1,10 +1,12 @@
 import { UserDataType } from "../auth/authSlice"
-import { sortByType } from "../filters/filtersSlice"
+import { SortByType } from "../filters/filtersSlice"
 
 export type FetchFeedbacksOptionsType = {
-    sortBy: sortByType
+    sortBy: SortByType
     category: string | null
 }
+
+
 
 export type PostCommentOptionsType = {
     id: string
@@ -14,10 +16,12 @@ export type PostCommentOptionsType = {
 }
 
 export type PostReplyOptionsType = {
-    id: string
+    commentId: string
     options: {
-        content: string,
+        content: string
         replyingTo: string
+        feedbackId: string
+
     }
 }
 
@@ -51,6 +55,7 @@ export type FeedbackItem = {
     status: string
     user: UserDataType
     comments?: Comment[]
+    commentsCount: number
     createdAt: string
     updatedAt: string
     __v: number

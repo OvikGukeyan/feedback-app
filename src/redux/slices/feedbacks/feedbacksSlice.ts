@@ -5,10 +5,13 @@ import { Comment, FeedbackItem, FeedbacksSliceState, FetchFeedbacksOptionsType, 
 
 
 
-export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], FetchFeedbacksOptionsType>('feedbacks/fetchFeedbacks', async ({ sortBy, category }) => {
-    const { data } = await axios.get('/feedbacks');
-    return data
-});
+
+
+export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], FetchFeedbacksOptionsType>('feedbacks/fetchFeedbacks', async (options) => {
+        const { data } = await axios.get(`/feedbacks?sortBy=${options.sortBy.type}&sortOrder=${options.sortBy.order}`);
+        return data;
+    }
+);
 
 export const fetchOneFeedback = createAsyncThunk<FeedbackItem, string>('feedbacks/fetchOneFeedback', async (id) => {
     const { data } = await axios.get(`/feedbacks/${id}`);
@@ -21,8 +24,8 @@ export const postComment = createAsyncThunk<FeedbackItem, PostCommentOptionsType
     return data.updatedFeedback
 });
 
-export const postReply = createAsyncThunk<Comment, PostReplyOptionsType>('feedbacks/postReply', async ({ id, options }) => {
-    const { data } = await axios.post(`/comments/${id}/replies`, options);
+export const postReply = createAsyncThunk<Comment, PostReplyOptionsType>('feedbacks/postReply', async ({ commentId, options }) => {
+    const { data } = await axios.post(`/comments/${commentId}/replies`, options);
     return data.updatedComment
 });
 

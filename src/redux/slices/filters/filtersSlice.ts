@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
-export type sortByType = {
+export type SortByType = {
     name: string
     type: string
     order: string
@@ -9,7 +9,7 @@ export type sortByType = {
 
 interface FilterSliceState {
     category: string | null
-    sortBy: sortByType 
+    sortBy: SortByType 
     searchValue: string
 }
 

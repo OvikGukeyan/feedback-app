@@ -25,11 +25,7 @@ const FeedbackDetail: React.FC = () => {
     const isEditable = data?._id === curentFeedback?.user._id;
     const comments = curentFeedback?.comments;
 
-    const countCommentsNumber = (com: Comment[]) => {
-        const commentsNumber = com?.length ? com.length : 0;
-        const replies = com?.reduce((acu, item) => item?.replies ? acu + item.replies.length : acu + 0, 0);
-        return commentsNumber + replies
-    };
+    
 
     useEffect(() => {
         params.id &&
@@ -56,12 +52,13 @@ const FeedbackDetail: React.FC = () => {
         }
     };
 
-    const handleSubmitReply = (id: string, replyingTo: string) => {
+    const handleSubmitReply = (feedbackId: string, commentId: string, replyingTo: string) => {
         const params = {
-            id,
+            commentId,
             options: {
                 content: replyText,
-                replyingTo: replyingTo
+                replyingTo: replyingTo,
+                feedbackId: feedbackId
             }
         }
         dispatch(postReply(params))
@@ -70,7 +67,6 @@ const FeedbackDetail: React.FC = () => {
     };
 
 
-    const commentsNumber = comments ? countCommentsNumber(comments) : 0;
 
 
 
@@ -84,7 +80,7 @@ const FeedbackDetail: React.FC = () => {
             </div>
             {curentFeedback ? <Item item={curentFeedback} /> : <ItemLoader />}
             <div className={styles.comments}>
-                {commentsNumber ? <h2>{commentsNumber} Comments</h2> : <h2> This feedback has no comments yet </h2>}
+                {curentFeedback ? <h2>{curentFeedback.commentsCount} Comments</h2> : <h2> This feedback has no comments yet </h2>}
                 {comments &&
                     comments.map((item, ind) => (
                         <FullComment
