@@ -8,7 +8,8 @@
     cursor: pointer;
 }
 
-.add_button, .sign_in {
+.add_button,
+.sign_in {
     background-color: #AD1FEA;
     color: #fff;
     min-width: 160px;
@@ -24,7 +25,8 @@
 
 
 
-.category_button, .category_button_active {
+.category_button,
+.category_button_active {
     background-color: #F2F2F2;
     color: #4661E6;
     font-size: 13px;
@@ -40,14 +42,14 @@
 .category_button_active {
     background-color: #4661E6;
     color: #fff;
+
     &:hover {
         background-color: #4661E6;
     }
 }
 
 .view_roadmap {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
+
     padding: 0;
     font-size: 13px;
     font-weight: 600;
@@ -55,10 +57,13 @@
 
     &:hover {
         color: #8397F8;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
     }
 }
 
-.upvotes, .upvotes_goriz {
+.upvotes,
+.upvotes_goriz {
     margin-right: 30px;
     background-color: #F2F2F2;
     font-size: 13px;
@@ -83,7 +88,8 @@
     width: 70px;
 }
 
-.go_back, .go_back_white {
+.go_back,
+.go_back_white {
     font-size: 14px;
     font-weight: 700;
     color: #647196;
@@ -92,6 +98,7 @@
     &:hover {
         text-decoration: underline;
     }
+
     &::before {
         margin-right: 8px;
         content: url(../../../public/assets/shared/icon-arrow-left.svg);
@@ -102,7 +109,8 @@
     color: #fff;
 }
 
-.edit, .sign_up {
+.edit,
+.sign_up {
     background-color: #4661E6;
     color: #fff;
     min-width: 160px;
@@ -130,7 +138,8 @@
     }
 }
 
-.delete, .sign_out {
+.delete,
+.sign_out {
     background-color: #D73737;
     color: #fff;
     width: 95px;
@@ -150,3 +159,16 @@
     }
 }
 
+.delete_comment {
+    padding: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #D73737;
+    margin-right: 20px;
+
+    &:hover {
+        color: #E98888;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+    }
+}

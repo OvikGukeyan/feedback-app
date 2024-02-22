@@ -25,7 +25,7 @@ export type PostReplyOptionsType = {
     }
 }
 
-type Reply = {
+export type ReplyType = {
     _id: string;
     content: string;
     user: UserDataType;
@@ -40,7 +40,7 @@ export type Comment = {
     user: UserDataType;
     createdAt: string;
     updatedAt: string;
-    replies?: Reply[];
+    replies?: ReplyType[];
 }
 
 

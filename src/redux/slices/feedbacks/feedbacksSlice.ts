@@ -21,12 +21,22 @@ export const fetchOneFeedback = createAsyncThunk<FeedbackItem, string>('feedback
 
 export const postComment = createAsyncThunk<FeedbackItem, PostCommentOptionsType>('feedbacks/postComment', async ({ id, options }) => {
     const { data } = await axios.post(`/feedbacks/${id}/comments`, options);
-    return data.updatedFeedback
+    return data
+});
+
+export const removeComment = createAsyncThunk<FeedbackItem, string>('feedbacks/removeComment', async (commentId) => {
+    const { data } = await axios.delete(`/comments/${commentId}`);
+    return data
 });
 
 export const postReply = createAsyncThunk<Comment, PostReplyOptionsType>('feedbacks/postReply', async ({ commentId, options }) => {
     const { data } = await axios.post(`/comments/${commentId}/replies`, options);
-    return data.updatedComment
+    return data
+});
+
+export const removeReply = createAsyncThunk<Comment, string>('feedbacks/removeReply', async (reolyId) => {
+    const { data } = await axios.delete(`/replies/${reolyId}`);
+    return data
 });
 
 
@@ -60,6 +70,8 @@ const feedbacksSlice = createSlice({
                 state.isLoading = false;
                 state.loadingRejected = true;
             })
+
+
             .addCase(postComment.pending, (state) => {
                 state.isLoading = true;
                 state.loadingRejected = false;
@@ -72,6 +84,8 @@ const feedbacksSlice = createSlice({
                 state.isLoading = false;
                 state.loadingRejected = true;
             })
+
+
             .addCase(fetchOneFeedback.pending, (state) => {
                 state.currentFeedback = null;
                 state.isLoading = true;
@@ -87,6 +101,8 @@ const feedbacksSlice = createSlice({
                 state.isLoading = false;
                 state.loadingRejected = true;
             })
+
+
             .addCase(postReply.pending, (state) => {
                 state.isLoading = true;
                 state.loadingRejected = false;
@@ -95,7 +111,9 @@ const feedbacksSlice = createSlice({
                 if (state.currentFeedback?.comments?.length) {
                     const index = state.currentFeedback.comments?.findIndex((obj) => obj._id === action.payload._id);
                     state.currentFeedback.comments[index] = action.payload;
+                    state.currentFeedback.commentsCount++;
                 }
+                
                 state.isLoading = false;
                 state.loadingRejected = false;
             })
@@ -104,6 +122,38 @@ const feedbacksSlice = createSlice({
                 state.isLoading = false;
                 state.loadingRejected = true;
             })
+
+
+            .addCase(removeComment.pending, (state) => {
+                state.isLoading = true;
+                state.loadingRejected = false;
+            })
+            .addCase(removeComment.fulfilled, (state, action) => {
+                state.currentFeedback = action.payload;
+            })
+            .addCase(removeComment.rejected, (state) => {
+                state.isLoading = false;
+                state.loadingRejected = true;
+            })
+
+
+
+            .addCase(removeReply.pending, (state) => {
+                state.isLoading = true;
+                state.loadingRejected = false;
+            })
+            .addCase(removeReply.fulfilled, (state, action) => {
+                if (state.currentFeedback?.comments?.length) {
+                    const index = state.currentFeedback.comments?.findIndex((obj) => obj._id === action.payload._id);
+                    state.currentFeedback.comments[index] = action.payload;
+                    state.currentFeedback.commentsCount--;
+                }
+            })
+            .addCase(removeReply.rejected, (state) => {
+                state.isLoading = false;
+                state.loadingRejected = true;
+            })
+
     }
 });
 

@@ -8,7 +8,6 @@ import { Button, FullComment, Item } from '../../components';
 import { fetchOneFeedback, postComment, postReply, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import ItemLoader from '../../components/Item/ItemLoader';
 import { selectIsAuth } from '../../redux/slices/auth/authSlice';
-import { Comment } from '../../redux/slices/feedbacks/types';
 
 
 const FeedbackDetail: React.FC = () => {
