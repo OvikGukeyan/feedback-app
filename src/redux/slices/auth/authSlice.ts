@@ -32,14 +32,15 @@ export const fetchAuthMe = createAsyncThunk<UserDataType>('auth/fetchAuthMe', as
 
 
 export type UserDataType = {
-    _id: string;
-    fullName: string;
-    userName: string;
-    email: string;
-    createdAt: string;
-    updatedAt: string;
-    token: string;
+    _id: string
+    fullName: string
+    userName: string
+    email: string
+    createdAt: string
+    updatedAt: string
+    token: string
     avatarUrl?: string
+    upvoted: string[]
 }
 
 interface authSliceState {
@@ -74,6 +75,14 @@ const authSlice = createSlice({
     reducers: {
         signOut: (state) => {
             state.data = null;
+        },
+        addUpvoted: (state, action) => {
+            if(state.data?.upvoted.includes(action.payload)) {
+                const newUpvoted = state.data.upvoted.filter((id) => id !== action.payload)
+                state.data.upvoted = newUpvoted;
+            }else{
+                state.data?.upvoted.push(action.payload)
+            }
         }
     },
     extraReducers: (builder) => {
@@ -93,6 +102,6 @@ const authSlice = createSlice({
 
 });
 
-export const { signOut } = authSlice.actions;
+export const { signOut, addUpvoted } = authSlice.actions;
 export const selectIsAuth = (state: RootState) => state.auth
 export default authSlice.reducer;

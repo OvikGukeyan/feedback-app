@@ -9,13 +9,17 @@ type ReplyComponentType = {
     handleSubmitReply: (feedbackId: string, commentId: string, replyingTo: string) => void
     handleCommentInput: (event: ChangeEvent<HTMLTextAreaElement>) => void
     feedbackId: string
-    replyId: string
+    currentReplyId: string
     replyText: string
     commentId: string
     userName: string
+    handleRemoveReply: (replyId: string) => void
 }
 
-const Reply: React.FC<ReplyComponentType> = ({userName, commentId, replyText, replyId, item, handleClickReply, handleSubmitReply, handleCommentInput, feedbackId}) => {
+const Reply: React.FC<ReplyComponentType> = ({handleRemoveReply, userName, commentId, replyText, currentReplyId, item, handleClickReply, handleSubmitReply, handleCommentInput, feedbackId}) => {
+    
+    
+    
     return (
         <div className={`${styles.comment} ${styles.reply}`}>
             <div className={styles.comment_head}>
@@ -26,14 +30,14 @@ const Reply: React.FC<ReplyComponentType> = ({userName, commentId, replyText, re
                     <h4>{item.user.fullName}</h4>
                     <p>@{item.user.userName}</p>
                 </div>
-                <Button onClick={() => { }} className='delete_comment'>Delete</Button>
+                <Button onClick={() => handleRemoveReply(item._id)} className='delete_comment'>Delete</Button>
                 <Button onClick={() => handleClickReply(item._id)} className='view_roadmap'>Reply</Button>
             </div>
             <div className={styles.content}>
                 <div className={styles.text}>
                     <span>@{item.replyingTo}</span>
                     {item.content}
-                    <div className={replyId === item._id ? styles.reply_input : styles.hide}>
+                    <div className={currentReplyId === item._id ? styles.reply_input : styles.hide}>
                         <textarea value={replyText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
                         <Button onClick={() => handleSubmitReply(feedbackId, commentId, userName)} className={'add_button'}>Post Reply</Button>
                     </div>

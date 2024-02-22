@@ -51,7 +51,14 @@ const feedbacksSlice = createSlice({
     name: 'feedbacks',
     initialState,
     reducers: {
-
+        upvotePlus: (state, action) => {
+            const feedbackInd = state.feedbacks.findIndex((obj) => obj._id === action.payload.id);
+            state.feedbacks[feedbackInd].upvotes++;
+        },
+        upvoteMinus: (state, action) => {
+            const feedbackInd = state.feedbacks.findIndex((obj) => obj._id === action.payload.id);
+            state.feedbacks[feedbackInd].upvotes--;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -157,5 +164,6 @@ const feedbacksSlice = createSlice({
     }
 });
 
+export const {upvoteMinus, upvotePlus} = feedbacksSlice.actions; 
 export const selectFeedbacks = (state: RootState) => state.feedbacks
 export default feedbacksSlice.reducer;

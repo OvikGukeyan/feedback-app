@@ -19,7 +19,7 @@ const FeedbackDetail: React.FC = () => {
 
     const [commentText, setCommentText] = useState('');
     const [replyText, setReplyText] = useState('');
-    const [replyId, setReplyId] = useState('');
+    const [currentReplyId, setCurrentReplyId] = useState('');
 
     const isEditable = data?._id === currentFeedback?.user._id;
     const comments = currentFeedback?.comments;
@@ -62,7 +62,7 @@ const FeedbackDetail: React.FC = () => {
         }
         dispatch(postReply(params))
         setReplyText('');
-        setReplyId('');
+        setCurrentReplyId('');
     };
 
 
@@ -84,8 +84,8 @@ const FeedbackDetail: React.FC = () => {
                     comments.map((item, ind) => (
                         <FullComment
                             replyText={replyText}
-                            replyId={replyId}
-                            setReplyId={setReplyId}
+                            currentReplyId={currentReplyId}
+                            setCurrentReplyId={setCurrentReplyId}
                             setReplyText={setReplyText}
                             key={ind}
                             comment={item}

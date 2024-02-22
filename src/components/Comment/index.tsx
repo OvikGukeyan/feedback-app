@@ -4,19 +4,19 @@ import styles from './Comment.module.scss';
 import { Button, Reply } from '..';
 import { Comment } from '../../redux/slices/feedbacks/types';
 import { useSelector } from 'react-redux';
-import { removeComment, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { removeComment, removeReply, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useAppDispatch } from '../../redux/store';
 
 type FullCommentType = {
     comment: Comment
     setReplyText: (text: string) => void
-    setReplyId: (arg0: string) => void
-    replyId: string
+    setCurrentReplyId: (arg0: string) => void
+    currentReplyId: string
     replyText: string
     handleSubmitReply: (feedbackId: string, commentId: string, replyingTo: string) => void
 }
 
-const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setReplyId, replyId, replyText, handleSubmitReply }) => {
+const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setCurrentReplyId, currentReplyId, replyText, handleSubmitReply }) => {
     const { currentFeedback } = useSelector(selectFeedbacks);
     const feedbackId = currentFeedback?._id ? currentFeedback?._id : '';
     const dispatch = useAppDispatch();
@@ -29,10 +29,10 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setRepl
     };
 
     const handleClickReply = (id: string) => {
-        if (id !== replyId) {
-            setReplyId(id)
+        if (id !== currentReplyId) {
+            setCurrentReplyId(id)
         } else {
-            setReplyId('')
+            setCurrentReplyId('')
         }
     };
 
@@ -40,7 +40,9 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setRepl
         dispatch(removeComment(comment._id))
     }
 
-
+    const handleRemoveReply = (replyId: string) => {
+        dispatch(removeReply(replyId))
+    }
 
     return (
         <div className={styles.comment}>
@@ -57,13 +59,23 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setRepl
             </div>
             <div className={`${styles.content} ${styles.line}`}>
                 <p className={styles.text}>{comment.content}</p>
-                <div className={replyId === comment._id ? styles.reply_input : styles.hide}>
+                <div className={currentReplyId === comment._id ? styles.reply_input : styles.hide}>
                     <textarea value={replyText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
                     <Button onClick={() => handleSubmitReply(feedbackId, comment._id, comment.user.userName)} className={'add_button'}>Post Reply</Button>
                 </div>
                 {comment.replies && comment.replies.map(item => (
-                    <Reply userName={comment.user.userName} commentId={comment._id} replyText={replyText} replyId={replyId} feedbackId={feedbackId} handleCommentInput={handleCommentInput} handleSubmitReply={handleSubmitReply} handleClickReply={handleClickReply} item ={item}/>
+                    <Reply
+                        userName={comment.user.userName}
+                        commentId={comment._id}
+                        replyText={replyText}
+                        currentReplyId={currentReplyId}
+                        feedbackId={feedbackId}
+                        handleCommentInput={handleCommentInput}
+                        handleSubmitReply={handleSubmitReply}
+                        handleClickReply={handleClickReply} item={item}
+                        handleRemoveReply={handleRemoveReply} />
                 ))}
+
 
             </div>
 

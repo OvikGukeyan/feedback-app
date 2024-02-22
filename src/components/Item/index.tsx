@@ -2,17 +2,39 @@ import React from 'react';
 import styles from './Item.module.scss';
 import Button from '../Button';
 import { FeedbackItem } from '../../redux/slices/feedbacks/types';
+import axios from '../../axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { addUpvoted, selectIsAuth } from '../../redux/slices/auth/authSlice';
+import { upvoteMinus, upvotePlus } from '../../redux/slices/feedbacks/feedbacksSlice';
 
 type ItemType = {
     item: FeedbackItem,
-    handleFeedbackCliick?: (id:string)=>void
+    handleFeedbackCliick?: (id: string) => void
 }
 
-const Item: React.FC<ItemType> = ({item, handleFeedbackCliick}) => {
-    return (
-        <div onClick={()=>handleFeedbackCliick?.(item._id)} className={styles.item}>
+const Item: React.FC<ItemType> = ({ item, handleFeedbackCliick }) => {
+    const dispatch = useDispatch();
+    const { data } = useSelector(selectIsAuth)
 
-            <Button className='upvotes'>{item.upvotes}</Button>
+    const handleUpvote = async () => {
+        try {
+            // if (data?.upvoted.includes(item._id)) {
+            //     dispatch(upvoteMinus(item._id))
+            //     dispatch(addUpvoted(item._id))
+
+            // } else {
+            //     dispatch(upvotePlus(item._id))
+            //     dispatch(addUpvoted(item._id))
+            // }
+            await axios.post(`/feedbacks/${item._id}/upvote`);
+        } catch (error) {
+            console.warn(error)
+            alert('Failed to upvote feedback')
+        }
+    }
+    return (
+        <div onClick={() => handleFeedbackCliick?.(item._id)} className={styles.item}>
+            <div onClick={(e) => e.stopPropagation()}><Button onClick={handleUpvote} className='upvotes'>{item.upvotes}</Button></div>
             <div className={styles.content}>
                 <h1>{item.title}</h1>
                 <p>{item.description}</p>
