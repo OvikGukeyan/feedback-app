@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './CreateFeedback.module.scss';
 import { Button, PopUp } from '../../components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import axios from '../../axios';
-import { title } from 'process';
 
 
 
 
 const CreateFeedback: React.FC = () => {
     const categorysList = [{ name: 'UI' }, { name: 'UX' }, { name: 'Enhancement' }, { name: 'Bug' }, { name: 'Feature' }];
-    const statesList = [{ name: 'Suggestion' }, { name: 'Planned' }, { name: 'In-Progress' }, { name: 'Live' }];
+    const statesList = [{ name: 'Suggestion' }, { name: 'Planned' }, { name: 'In Progress' }, { name: 'Live' }];
     const navigate = useNavigate();
     const params = useParams();
     const id = params.id ? params.id : '';
@@ -76,7 +75,6 @@ const CreateFeedback: React.FC = () => {
     const onSubmit = id ? async (params: ParamsType) => {
         await axios.patch(`/feedbacks/${id}`, params)
             .then((res) => {
-                console.log(res.data)
                 navigate(`/detail/${id}`)
             })
             .catch((error) => {
@@ -86,7 +84,8 @@ const CreateFeedback: React.FC = () => {
     } :
         async (params: ParamsType) => {
             await axios.post('/feedbacks', params)
-                .then((res) => navigate(`/detail/${res.data._id}`))
+                .then((res) =>
+                    navigate(`/detail/${res.data._id}`))
                 .catch((error) => {
                     console.warn(error)
                     alert('Failed to create!')
@@ -143,12 +142,12 @@ const CreateFeedback: React.FC = () => {
                             </PopUp>
                         </div>
                     }
-                    
+
                     <div className={styles.description}>
                         <label htmlFor="description">Feedback Detail <span className={errors.description && styles.instruction}>Include any specific comments on what should be improved, added, etc.</span></label>
                         <textarea className={errors.description && styles.input_error} {...register('description', {
                             required: 'Enter description',
-                        },)}/>
+                        },)} />
                     </div>
                     <div className={styles.buttons}>
                         {id &&

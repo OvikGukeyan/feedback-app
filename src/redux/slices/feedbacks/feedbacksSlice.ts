@@ -52,11 +52,12 @@ const feedbacksSlice = createSlice({
     initialState,
     reducers: {
         upvotePlus: (state, action) => {
-            const feedbackInd = state.feedbacks.findIndex((obj) => obj._id === action.payload.id);
+            const feedbackInd = state.feedbacks.findIndex((obj) => obj._id === action.payload);
             state.feedbacks[feedbackInd].upvotes++;
+
         },
         upvoteMinus: (state, action) => {
-            const feedbackInd = state.feedbacks.findIndex((obj) => obj._id === action.payload.id);
+            const feedbackInd = state.feedbacks.findIndex((obj) => obj._id === action.payload);
             state.feedbacks[feedbackInd].upvotes--;
         }
     },

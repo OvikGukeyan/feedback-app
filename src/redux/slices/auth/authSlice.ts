@@ -12,7 +12,7 @@ export type RegisterParamsType = {
     userName: string
     email: string
     password: string
-    avatarUrl?: string 
+    avatarUrl?: string | null
 }
 
 export const fetchRegister = createAsyncThunk<UserDataType, RegisterParamsType>('auth/fetchRegister', async (params) => {

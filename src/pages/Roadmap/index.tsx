@@ -17,12 +17,12 @@ const Roadmap: React.FC = () => {
         }
     }
     const sortFeedbacks: SortFeedbacks = {
-        planned: { name: 'Planned', description: 'Ideas prioritized for research', items: feedbacks.filter(feedback => feedback.status === 'planned') },
-        inProgress: { name: 'In Progress', description: 'Currently being developed', items: feedbacks.filter(feedback => feedback.status === 'in-progress') },
-        live: { name: 'Live', description: 'Released features', items: feedbacks.filter(feedback => feedback.status === 'live') },
+        planned: { name: 'Planned', description: 'Ideas prioritized for research', items: feedbacks.filter(feedback => feedback.status === 'Planned') },
+        inProgress: { name: 'In Progress', description: 'Currently being developed', items: feedbacks.filter(feedback => feedback.status === 'In Progress') },
+        live: { name: 'Live', description: 'Released features', items: feedbacks.filter(feedback => feedback.status === 'Live') },
 
     }
-
+    console.log(feedbacks, sortFeedbacks)
    
     return (
         <div className={styles.roadmap}>

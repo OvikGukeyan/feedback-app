@@ -18,14 +18,14 @@ const Item: React.FC<ItemType> = ({ item, handleFeedbackCliick }) => {
 
     const handleUpvote = async () => {
         try {
-            // if (data?.upvoted.includes(item._id)) {
-            //     dispatch(upvoteMinus(item._id))
-            //     dispatch(addUpvoted(item._id))
+            if (data?.upvoted.includes(item._id)) {
+                dispatch(upvoteMinus(item._id))
+                dispatch(addUpvoted(item._id))
 
-            // } else {
-            //     dispatch(upvotePlus(item._id))
-            //     dispatch(addUpvoted(item._id))
-            // }
+            } else {
+                dispatch(upvotePlus(item._id))
+                dispatch(addUpvoted(item._id))
+            }
             await axios.post(`/feedbacks/${item._id}/upvote`);
         } catch (error) {
             console.warn(error)
