@@ -17,7 +17,7 @@ const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isAuth = Boolean(useSelector(selectIsAuth).data);
-  const {feedbacks, isLoading, loadingRejected} = useSelector(selectFeedbacks);;
+  const { feedbacks, isLoading, loadingRejected } = useSelector(selectFeedbacks);;
   const { sortBy, filter } = useSelector(selectFilters);
   const statuses = [
     { name: 'Planned', count: feedbacks.filter((item) => item.status === 'Planned').length, color: '#F49F85' },
@@ -36,11 +36,11 @@ const Home: React.FC = () => {
   const suggestions = feedbacks.filter(item => item.status === 'Suggestion');
 
   useEffect(() => {
-    
-    dispatch(fetchFeedbacks({sortBy, filter}))
+
+    dispatch(fetchFeedbacks({ sortBy, filter }))
   }, [sortBy, filter]);
 
- 
+
 
   const handleFeedbackCliick = (id: string) => {
     navigate(`/detail/${id}`);
@@ -52,7 +52,7 @@ const Home: React.FC = () => {
     window.localStorage.removeItem('token')
   };
 
-  
+
 
   const handleChooseSort = (item: string) => {
     const obj = sortList.find((i) => i.name === item);
@@ -70,23 +70,23 @@ const Home: React.FC = () => {
           </div>
 
           <PopUp active={sortBy.name} handleChooseItem={handleChooseSort} list={sortList} className='sort'>
-            <p className={styles.sort}>Sort by: <span>{sortBy.name}</span>
-            </p>
+            <p className={styles.sort}>Sort by: <span>{sortBy.name}</span></p>
           </PopUp>
+          
           {isAuth ?
             <div className={styles.buttons_box}>
               <Link to={'/create'}><Button className='add_button'>+ Add Feedback</Button></Link>
               <Button onClick={handleSignOut} className='sign_out'>Sign Out</Button>
 
-              
-              
+
+
             </div>
             :
             <div className={styles.buttons_box}>
               <Link to={'/login'}><Button className='sign_in'>Sign In</Button></Link>
               <Link to={'/register'}><Button className='sign_up'>Sign Up</Button></Link>
-              
-              
+
+
             </div>}
         </header>
         {isLoading ?

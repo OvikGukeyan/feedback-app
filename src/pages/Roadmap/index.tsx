@@ -1,28 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Roadmap.module.scss';
 import { Button } from '../../components';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { fetchFeedbacks, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { FeedbackItem } from '../../redux/slices/feedbacks/types';
+import { useAppDispatch } from '../../redux/store';
 
 const Roadmap: React.FC = () => {
+    const dispatch = useAppDispatch()
     const { feedbacks } = useSelector(selectFeedbacks);
 
-    type SortFeedbacks = {
+    // useEffect(() => {
+    //     dispatch(fetchFeedbacks())
+    //   }, []);
+    
+    type sortedFeedbacksTypes = {
         [key: string]: {
             name: string
             description: string
             items: FeedbackItem[]
         }
     }
-    const sortFeedbacks: SortFeedbacks = {
+    const sortedFeedbacks: sortedFeedbacksTypes = {
         planned: { name: 'Planned', description: 'Ideas prioritized for research', items: feedbacks.filter(feedback => feedback.status === 'Planned') },
         inProgress: { name: 'In Progress', description: 'Currently being developed', items: feedbacks.filter(feedback => feedback.status === 'In Progress') },
         live: { name: 'Live', description: 'Released features', items: feedbacks.filter(feedback => feedback.status === 'Live') },
-
     }
-    console.log(feedbacks, sortFeedbacks)
 
     return (
         <div className={styles.roadmap}>
@@ -35,11 +39,11 @@ const Roadmap: React.FC = () => {
 
             </header>
             <div className={styles.content}>
-                {Object.keys(sortFeedbacks).map((key) => (
+                {Object.keys(sortedFeedbacks).map((key) => (
                     <div key={key} className={styles.box}>
-                        <h3>{sortFeedbacks[key].name} (3)</h3>
-                        <p>{sortFeedbacks[key].description}</p>
-                        {sortFeedbacks[key].items.map(i => (
+                        <h3>{sortedFeedbacks[key].name} ({sortedFeedbacks[key].items.length})</h3>
+                        <p>{sortedFeedbacks[key].description}</p>
+                        {sortedFeedbacks[key].items.map(i => (
                             <div key={i._id} className={`${styles.feedback} ${styles[key]}`}>
                                 <span className={styles.state}>{i.status}</span>
                                 <Link to={`/detail/${i._id}`}>

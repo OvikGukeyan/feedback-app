@@ -35,7 +35,6 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseIt
         setVisiblePopup(!visiblePopup)
     }
     return (
-        <div ref={sortRef} className={styles.head}>
             <div className={styles[className]} onClick={toggleVisiablePopup}>
                 {children}
                 {
@@ -51,8 +50,6 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseIt
                     </ul>
                 </div>}
             </div>
-
-        </div>
     )
 }
 

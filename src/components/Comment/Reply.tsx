@@ -2,6 +2,8 @@ import React, { ChangeEvent } from 'react';
 import styles from './Comment.module.scss';
 import { ReplyType } from '../../redux/slices/feedbacks/types';
 import Button from '../Button';
+import { useSelector } from 'react-redux';
+import { selectIsAuth } from '../../redux/slices/auth/authSlice';
 
 type ReplyComponentType = {
     item: ReplyType
@@ -14,7 +16,8 @@ type ReplyComponentType = {
 }
 
 const Reply: React.FC<ReplyComponentType> = ({handleRemoveReply, replyText, currentReplyId, item, handleClickReply, handleSubmitReply, handleCommentInput}) => {
-    
+    const {data} = useSelector(selectIsAuth)
+    const isEditable = data?._id === item.user._id
     
     
     return (
@@ -27,7 +30,7 @@ const Reply: React.FC<ReplyComponentType> = ({handleRemoveReply, replyText, curr
                     <h4>{item.user.fullName}</h4>
                     <p>@{item.user.userName}</p>
                 </div>
-                <Button onClick={() => handleRemoveReply(item._id)} className='delete_comment'>Delete</Button>
+                {isEditable && <Button onClick={() => handleRemoveReply(item._id)} className='delete_comment'>Delete</Button>}
                 <Button onClick={() => handleClickReply(item._id)} className='view_roadmap'>Reply</Button>
             </div>
             <div className={styles.content}>

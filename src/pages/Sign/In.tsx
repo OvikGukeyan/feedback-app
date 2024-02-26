@@ -13,7 +13,7 @@ const SignIn: React.FC = () => {
     const isAuth = Boolean(useSelector(selectIsAuth).data);
     const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm({
         defaultValues: {
-            email: 'tjlkiklkkjkekkst@gmail.com',
+            email: 'test@gmail.com',
             password: '12345'
         },
         mode: 'onBlur'

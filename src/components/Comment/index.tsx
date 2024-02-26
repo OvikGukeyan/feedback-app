@@ -6,6 +6,7 @@ import { Comment } from '../../redux/slices/feedbacks/types';
 import { useSelector } from 'react-redux';
 import { removeComment, removeReply, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useAppDispatch } from '../../redux/store';
+import { selectIsAuth } from '../../redux/slices/auth/authSlice';
 
 type FullCommentType = {
     comment: Comment
@@ -20,6 +21,8 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setCurr
     const { currentFeedback } = useSelector(selectFeedbacks);
     const feedbackId = currentFeedback?._id ? currentFeedback?._id : '';
     const dispatch = useAppDispatch();
+    const {data} = useSelector(selectIsAuth);
+    const isEditable = data?._id === comment.user._id;
 
     const handleCommentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const newText = event.target.value;
@@ -54,7 +57,7 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setCurr
                     <h4>{comment.user.fullName}</h4>
                     <p>@{comment.user.userName}</p>
                 </div>
-                <Button onClick={handleRemoveComment} className='delete_comment'>Delete</Button>
+                {isEditable && <Button onClick={handleRemoveComment} className='delete_comment'>Delete</Button>}
                 <Button onClick={() => handleClickReply(comment._id)} className='view_roadmap'>Reply</Button>
             </div>
             <div className={`${styles.content} ${styles.line}`}>

@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border: none;
 }
 
 .add_button,
@@ -54,6 +55,7 @@
     font-size: 13px;
     font-weight: 600;
     color: #4661E6;
+    background-color: #fff;
 
     &:hover {
         color: #8397F8;
@@ -63,7 +65,8 @@
 }
 
 .upvotes,
-.upvotes_goriz {
+.upvotes_goriz,
+.upvotes_active {
     margin-right: 30px;
     background-color: #F2F2F2;
     font-size: 13px;
@@ -79,6 +82,23 @@
     &:hover {
         background-color: #CFD7FF;
     }
+
+
+
+
+}
+
+.upvotes_active {
+    background-color: #4661E6;
+    color: #fff;
+
+    &:hover {
+        background-color: #4661E6;
+    }
+    &::before {
+        content: url(../../../public/assets/shared/icon-arrow-down.svg);
+    }
+
 }
 
 .upvotes_goriz {
@@ -94,6 +114,8 @@
     font-weight: 700;
     color: #647196;
     padding: 0;
+    background-color: #F2F4FF;
+
 
     &:hover {
         text-decoration: underline;
@@ -107,6 +129,8 @@
 
 .go_back_white {
     color: #fff;
+    background-color: #3A4374;
+
 }
 
 .edit,

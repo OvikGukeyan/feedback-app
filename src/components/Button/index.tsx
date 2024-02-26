@@ -10,9 +10,9 @@ type ButtonType = {
 
 const Button: React.FC<ButtonType> = ({ children, className, onClick }) => {
   return (
-    <div onClick={onClick} className={`${styles.button} ${styles[className]}`}>
+    <button onClick={onClick} className={`${styles.button} ${styles[className]}`}>
       {children}
-    </div>
+    </button>
   )
 }
 

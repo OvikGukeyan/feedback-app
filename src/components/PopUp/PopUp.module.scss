@@ -1,16 +1,9 @@
-.head {
-    display: flex;
-    align-items: center;
-    width: 100%;
-
-
-
     .sort {
         display: flex;
         align-items: center;
-        margin-left: 40px;
+        margin-left: 20px;
         position: relative;
-        width: 255px;
+        width: 100%;
         cursor: pointer;
 
         p {
@@ -62,7 +55,6 @@
 
 
 
-}
 
 .pop_Up {
     width: 100%;

@@ -95,4 +95,24 @@
 
 
     }
+
+    @media (max-width: 1000px) {
+        .content {
+
+            .box {
+                h3 {
+                    font-size: 14px;
+                }
+
+                p {
+                    font-size: 14px;
+                }
+
+                .feedback {
+                    font-size: 13px;
+
+                }
+            }
+        }
+    }
 }

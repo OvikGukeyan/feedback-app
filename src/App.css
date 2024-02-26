@@ -19,4 +19,11 @@ a {
 .App {
   max-width: 1110px;
   margin: 30px auto;
+  padding: 0 50px;
+}
+
+@media (max-width: 1000px) {
+  .App {
+    padding: 0 30px;
+  }
 }

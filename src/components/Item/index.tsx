@@ -14,14 +14,14 @@ type ItemType = {
 
 const Item: React.FC<ItemType> = ({ item, handleFeedbackCliick }) => {
     const dispatch = useDispatch();
-    const { data } = useSelector(selectIsAuth)
+    const { data } = useSelector(selectIsAuth);
+    const isUpvoted = data?.upvoted.includes(item._id);
 
     const handleUpvote = async () => {
         try {
             if (data?.upvoted.includes(item._id)) {
                 dispatch(upvoteMinus(item._id))
                 dispatch(addUpvoted(item._id))
-
             } else {
                 dispatch(upvotePlus(item._id))
                 dispatch(addUpvoted(item._id))
@@ -31,10 +31,12 @@ const Item: React.FC<ItemType> = ({ item, handleFeedbackCliick }) => {
             console.warn(error)
             alert('Failed to upvote feedback')
         }
-    }
+    };
+
+    
     return (
         <div onClick={() => handleFeedbackCliick?.(item._id)} className={styles.item}>
-            <div onClick={(e) => e.stopPropagation()}><Button onClick={handleUpvote} className='upvotes'>{item.upvotes}</Button></div>
+            <div onClick={(e) => e.stopPropagation()}><Button onClick={handleUpvote} className={isUpvoted ? 'upvotes_active' : 'upvotes'}>{item.upvotes}</Button></div>
             <div className={styles.content}>
                 <h1>{item.title}</h1>
                 <p>{item.description}</p>
