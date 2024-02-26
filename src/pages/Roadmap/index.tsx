@@ -23,7 +23,7 @@ const Roadmap: React.FC = () => {
 
     }
     console.log(feedbacks, sortFeedbacks)
-   
+
     return (
         <div className={styles.roadmap}>
             <header  >
@@ -32,7 +32,7 @@ const Roadmap: React.FC = () => {
                     <h1>Roadmap</h1>
                 </div>
                 <Link to={'/create'}><Button className='add_button'>+ Add Feedback</Button></Link>
-                
+
             </header>
             <div className={styles.content}>
                 {Object.keys(sortFeedbacks).map((key) => (
@@ -42,7 +42,9 @@ const Roadmap: React.FC = () => {
                         {sortFeedbacks[key].items.map(i => (
                             <div key={i._id} className={`${styles.feedback} ${styles[key]}`}>
                                 <span className={styles.state}>{i.status}</span>
-                                <h3>{i.title}</h3>
+                                <Link to={`/detail/${i._id}`}>
+                                    <h3>{i.title}</h3>
+                                </Link>
                                 <p>{i.description}</p>
                                 <Button className='category_button'>{i.category}</Button>
                                 <div className={styles.foot}>

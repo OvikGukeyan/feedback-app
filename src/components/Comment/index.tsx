@@ -65,14 +65,12 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setCurr
                 </div>
                 {comment.replies && comment.replies.map(item => (
                     <Reply
-                        userName={comment.user.userName}
-                        commentId={comment._id}
                         replyText={replyText}
                         currentReplyId={currentReplyId}
-                        feedbackId={feedbackId}
                         handleCommentInput={handleCommentInput}
                         handleSubmitReply={handleSubmitReply}
-                        handleClickReply={handleClickReply} item={item}
+                        handleClickReply={handleClickReply} 
+                        item={item}
                         handleRemoveReply={handleRemoveReply} />
                 ))}
 

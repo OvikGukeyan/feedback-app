@@ -26,12 +26,14 @@ export type PostReplyOptionsType = {
 }
 
 export type ReplyType = {
-    _id: string;
-    content: string;
-    user: UserDataType;
-    createdAt: string;
-    updatedAt: string;
+    _id: string
+    content: string
+    user: UserDataType
+    createdAt: string
+    updatedAt: string
     replyingTo: string
+    feedbackId: string
+    commentId: string
 }
 
 export type Comment = {

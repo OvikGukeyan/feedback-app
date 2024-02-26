@@ -8,15 +8,12 @@ type ReplyComponentType = {
     handleClickReply: (id: string)=>void
     handleSubmitReply: (feedbackId: string, commentId: string, replyingTo: string) => void
     handleCommentInput: (event: ChangeEvent<HTMLTextAreaElement>) => void
-    feedbackId: string
     currentReplyId: string
     replyText: string
-    commentId: string
-    userName: string
     handleRemoveReply: (replyId: string) => void
 }
 
-const Reply: React.FC<ReplyComponentType> = ({handleRemoveReply, userName, commentId, replyText, currentReplyId, item, handleClickReply, handleSubmitReply, handleCommentInput, feedbackId}) => {
+const Reply: React.FC<ReplyComponentType> = ({handleRemoveReply, replyText, currentReplyId, item, handleClickReply, handleSubmitReply, handleCommentInput}) => {
     
     
     
@@ -39,7 +36,7 @@ const Reply: React.FC<ReplyComponentType> = ({handleRemoveReply, userName, comme
                     {item.content}
                     <div className={currentReplyId === item._id ? styles.reply_input : styles.hide}>
                         <textarea value={replyText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
-                        <Button onClick={() => handleSubmitReply(feedbackId, commentId, userName)} className={'add_button'}>Post Reply</Button>
+                        <Button onClick={() => handleSubmitReply(item.feedbackId, item.commentId, item.user.userName)} className={'add_button'}>Post Reply</Button>
                     </div>
                 </div>
 
