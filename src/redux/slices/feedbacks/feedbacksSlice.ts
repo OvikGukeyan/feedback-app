@@ -8,7 +8,7 @@ import { Comment, FeedbackItem, FeedbacksSliceState, FetchFeedbacksOptionsType, 
 
 
 export const fetchFeedbacks = createAsyncThunk<FeedbackItem[], FetchFeedbacksOptionsType>('feedbacks/fetchFeedbacks', async (options) => {
-        const { data } = await axios.get(`/feedbacks?sortBy=${options.sortBy.type}&sortOrder=${options.sortBy.order}&${options.filter.status ? `category=${options.filter.category}&status=${options.filter.status}` : ''}`);
+        const { data } = await axios.get(`/feedbacks${options.sortBy ? `?sortBy=${options.sortBy.type}&sortOrder=${options.sortBy.order}` : ''}${options.filter && options.filter.status ? `&category=${options.filter.category}&status=${options.filter.status}` : ''}`);
         return data;
     }
 );

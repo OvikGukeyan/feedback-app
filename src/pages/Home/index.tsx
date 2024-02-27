@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, Item, SideBar, PopUp } from '../../components';
 import { fetchFeedbacks, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { selectFilters, setSortBy } from '../../redux/slices/filters/filtersSlice';
-import ItemLoader from '../../components/Item/ItemLoader';
+import ItemLoader from '../../components/FeedbackItem/FeedbackItemLoader';
 import { selectIsAuth, signOut } from '../../redux/slices/auth/authSlice';
 
 

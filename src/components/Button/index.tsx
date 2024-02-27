@@ -1,16 +1,17 @@
 import React from 'react';
 import styles from './Button.module.scss';
-import { UseFormHandleSubmit } from 'react-hook-form';
 
 type ButtonType = {
   children: any
   className: string
   onClick?: ()=>void 
+  active?: boolean
+  disabled?: boolean
 }
 
-const Button: React.FC<ButtonType> = ({ children, className, onClick }) => {
+const Button: React.FC<ButtonType> = ({active, children, className, onClick, disabled }) => {
   return (
-    <button onClick={onClick} className={`${styles.button} ${styles[className]}`}>
+    <button disabled={disabled} onClick={onClick} className={`${styles.button} ${styles[className]} ${active ? styles.active : ''}`}>
       {children}
     </button>
   )

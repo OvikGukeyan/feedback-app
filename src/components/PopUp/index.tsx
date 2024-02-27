@@ -14,7 +14,7 @@ type PopUpTypes = {
 }
 const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseItem, active }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
-    const sortRef = useRef<HTMLDivElement>(null);
+    const sortRef = useRef<HTMLUListElement>(null);
 
 
     const handleOutsideClick = (e: MouseEvent) => {
@@ -23,7 +23,6 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseIt
                 setVisiblePopup(false);
             }
         }
-
     }
 
     useEffect(() => {
@@ -35,6 +34,7 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseIt
         setVisiblePopup(!visiblePopup)
     }
     return (
+        <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
             <div className={styles[className]} onClick={toggleVisiablePopup}>
                 {children}
                 {
@@ -43,13 +43,14 @@ const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseIt
                         <svg width="10" height="7" ><path d="M1 1l4 4 4-4" strokeWidth="2" fill="none" fillRule="evenodd" /></svg>
                 }
                 {visiblePopup && <div className={styles.pop_Up}>
-                    <ul>
+                    <ul ref={sortRef}>
                         {list.map((item) => (
                             <li key={item.name} className={active === item.name ? styles.active : ''} onClick={() => handleChooseItem(item.name)}>{item.name}</li>
                         ))}
                     </ul>
                 </div>}
             </div>
+        </div>
     )
 }
 

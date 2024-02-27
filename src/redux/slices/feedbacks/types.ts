@@ -2,8 +2,8 @@ import { UserDataType } from "../auth/authSlice"
 import { FilterType, SortByType } from "../filters/filtersSlice"
 
 export type FetchFeedbacksOptionsType = {
-    sortBy: SortByType
-    filter: FilterType
+    sortBy?: SortByType
+    filter?: FilterType
 }
 
 

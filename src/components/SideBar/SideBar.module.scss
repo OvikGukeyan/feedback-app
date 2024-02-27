@@ -1,4 +1,4 @@
-.side_bar {
+.wrapper {
     width: 23%;
     margin-right: 2%;
 
@@ -8,85 +8,100 @@
         background-size: cover;
         border-radius: 10px;
         padding: 25px;
-        
+
 
 
         &:before {
             content: "";
             padding-top: 18%;
             display: block;
-            
-        }
-
-        h1 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #fff;
 
         }
 
-        p {
-            font-size: 15px;
-            font-weight: 500;
-            color: #fff;
-            opacity: 0.5;
-        }
-    }
-
-
-    .categorys, .roadmap {
-        padding: 25px;
-        background-color: #fff;
-        margin-top: 20px;
-        border-radius: 10px;
-        display: flex;
-    }
-
-    .categorys {
-        flex-wrap: wrap;
-        button {
-            margin: 0 10px 10px 0;
-        }
-    }
-
-    .roadmap {
-        flex-direction: column;
-
-        .title {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-
-            h2 {
-                font-size: 18px;
+        .text {
+            h1 {
+                font-size: 20px;
                 font-weight: 700;
+                color: #fff;
+
             }
-        }
 
-        ul {
-            list-style: none;
-            padding: 0;
-
-            li {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-
-                p {
-                    width: 100%;
-                    margin-left: 15px;
-                    font-size: 16px;
-                    font-weight: 400;
-                }
-
-                span {
-                    font-size: 16px;
-                    font-weight: 700;
-                }
+            p {
+                font-size: 15px;
+                font-weight: 500;
+                color: #fff;
+                opacity: 0.5;
             }
         }
 
     }
+
+    .overlay {
+        .side_bar {
+
+
+
+
+            .categorys,
+            .roadmap {
+                padding: 25px;
+                background-color: #fff;
+                margin-top: 20px;
+                border-radius: 10px;
+                display: flex;
+            }
+
+            .categorys {
+                flex-wrap: wrap;
+
+                button {
+                    margin: 0 10px 10px 0;
+                }
+            }
+
+            .roadmap {
+                flex-direction: column;
+
+                .title {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+
+                    h2 {
+                        font-size: 18px;
+                        font-weight: 700;
+                    }
+                }
+
+                ul {
+                    list-style: none;
+                    padding: 0;
+
+                    li {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        p {
+                            width: 100%;
+                            margin-left: 15px;
+                            font-size: 16px;
+                            font-weight: 400;
+                        }
+
+                        span {
+                            font-size: 16px;
+                            font-weight: 700;
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+
+
     @media (max-width: 1000px) {
         width: 100%;
         height: 180px;
@@ -95,11 +110,96 @@
         justify-content: space-between;
         margin-bottom: 30px;
 
-        .board, .categorys, .roadmap {
+        .board {
             height: 100%;
             width: 32%;
-            margin-top: 0;
+            background-image: url(../../../public/assets/suggestions/tablet/background-header.png);
 
-        } 
+        }
+
+        .overlay {
+            width: 66%;
+            .side_bar {
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .categorys,
+                .roadmap {
+                    margin-top: 0;
+                    width: 49%;
+                }
+            }
+        }
+
+
+
+    }
+
+    @media (max-width: 767px) {
+        height: 72px;
+        margin-bottom: 0;
+
+        .board {
+            width: 100%;
+            background-image: url(../../../public/assets/suggestions/mobile/background-header.png);
+            border-radius: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 72px;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            overflow: hidden;
+
+            .side_bar {
+                background-color: #F7F8FD;
+                position: absolute;
+                width: 300px;
+                right: 0;
+                box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                overflow: auto;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 20px;
+
+                .categorys,
+                .roadmap {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
+        .overlayVisible {
+            visibility: visible;
+            opacity: 1;
+
+            .side_bar {
+                transform: translateX(0);
+            }
+        }
+
     }
 }

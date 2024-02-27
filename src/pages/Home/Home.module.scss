@@ -80,7 +80,25 @@
         .main {
             width: 100%;
         }
+    }
 
-        
+    @media (max-width: 767px) {
+        .main {
+            header {
+                border-radius: 0;
+                height: 56px;
+                padding: 0 15px;
+
+                .suggestions {
+                    display: none;
+                }
+
+
+            }
+
+            .items {
+                padding: 0 15px;
+            }
+        }
     }
 }
