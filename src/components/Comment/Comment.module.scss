@@ -1,4 +1,5 @@
 .comment {
+    margin-top: 30px;
 
     .comment_head {
         display: flex;
@@ -29,7 +30,6 @@
         margin-left: 20px;
 
         .text {
-            margin-bottom: 30px;
             padding-left: 50px;
             span {
                 margin-right: 10px;
@@ -37,9 +37,13 @@
             }
         }
 
+        .box {
+            padding-left: 50px;
+        }
+
         .reply_input {
             display: flex;
-            margin: 0 0 20px 50px;
+            margin: 20px 0 20px 0;
 
             textarea {
                 width: 100%;
@@ -85,6 +89,19 @@
 
     .reply {
         margin-left: 30px;
+    }
+
+    @media (max-width: 767px) {
+        .content {
+            .reply_input {
+                flex-direction: column;
+                align-items: flex-end;
+                textarea {
+                    margin: 0 0 20px 0;
+                }
+
+            }
+        }
     }
 
 }

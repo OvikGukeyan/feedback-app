@@ -36,10 +36,10 @@ const Reply: React.FC<ReplyComponentType> = ({handleRemoveReply, replyText, curr
             <div className={styles.content}>
                 <div className={styles.text}>
                     <span>@{item.replyingTo}</span>
-                    {item.content}
+                    <p></p>{item.content}<p/>
                     <div className={currentReplyId === item._id ? styles.reply_input : styles.hide}>
                         <textarea value={replyText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
-                        <Button onClick={() => handleSubmitReply(item.feedbackId, item.commentId, item.user.userName)} className={'add_button'}>Post Reply</Button>
+                        <Button disabled={replyText.length < 1} onClick={() => handleSubmitReply(item.feedbackId, item.commentId, item.user.userName)} className={'add_button'}>Post Reply</Button>
                     </div>
                 </div>
 

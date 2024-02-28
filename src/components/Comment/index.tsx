@@ -21,7 +21,7 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setCurr
     const { currentFeedback } = useSelector(selectFeedbacks);
     const feedbackId = currentFeedback?._id ? currentFeedback?._id : '';
     const dispatch = useAppDispatch();
-    const {data} = useSelector(selectIsAuth);
+    const { data } = useSelector(selectIsAuth);
     const isEditable = data?._id === comment.user._id;
 
     const handleCommentInput = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -62,17 +62,20 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setCurr
             </div>
             <div className={`${styles.content} ${styles.line}`}>
                 <p className={styles.text}>{comment.content}</p>
-                <div className={currentReplyId === comment._id ? styles.reply_input : styles.hide}>
-                    <textarea value={replyText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
-                    <Button onClick={() => handleSubmitReply(feedbackId, comment._id, comment.user.userName)} className={'add_button'}>Post Reply</Button>
+                <div className={styles.box}>
+                    <div className={currentReplyId === comment._id ? styles.reply_input : styles.hide}>
+                        <textarea value={replyText} onChange={(e) => { handleCommentInput(e) }} placeholder='Type your comment here' />
+                        <Button disabled={replyText.length < 1} onClick={() => handleSubmitReply(feedbackId, comment._id, comment.user.userName)} className={'add_button'}>Post Reply</Button>
+                    </div>
                 </div>
+
                 {comment.replies && comment.replies.map(item => (
                     <Reply
                         replyText={replyText}
                         currentReplyId={currentReplyId}
                         handleCommentInput={handleCommentInput}
                         handleSubmitReply={handleSubmitReply}
-                        handleClickReply={handleClickReply} 
+                        handleClickReply={handleClickReply}
                         item={item}
                         handleRemoveReply={handleRemoveReply} />
                 ))}

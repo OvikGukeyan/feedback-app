@@ -29,7 +29,7 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
         }
     }
 
-    
+
 
     const handleHamburgerClick = () => {
         setIsSideBar(!isSideBar)
@@ -46,7 +46,13 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
                     <h1>Ovik Hukieian</h1>
                     <p>Feedback Board</p>
                 </div>
-                <svg onClick={handleHamburgerClick} width="24" height="20" xmlns="http://www.w3.org/2000/svg"><g fill="#fff" fill-rule="evenodd"><path d="M0 0h24v4H0zM0 8h24v4H0zM0 16h24v4H0z" /></g></svg>
+                <svg onClick={handleHamburgerClick} xmlns="http://www.w3.org/2000/svg" width="24" height="20">
+                    <path
+                        fill="#fff"
+                        fillRule="evenodd"
+                        d="M0 0h24v4H0zm0 8h24v4H0zm0 8h24v4H0z"
+                    ></path>
+                </svg>
             </div>
             <div onClick={(e) => handleOutsideClick(e)} className={`${styles.overlay} ${isSideBar ? styles.overlayVisible : ''}`}>
                 <aside ref={sideBarRef} className={styles.side_bar}>
@@ -65,8 +71,8 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
                         <ul>
                             {
                                 statuses.map((status, ind) => (
-                                    <li key={ind}>
-                                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" >
+                                    <li>
+                                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <circle cx="4" cy="4" r="4" fill={status.color} />
                                         </svg>
                                         <p>{status.name}</p>
@@ -77,9 +83,9 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
                         </ul>
                     </div>
                 </aside>
-            </div>
+            </div >
 
-        </div>
+        </div >
 
     )
 }

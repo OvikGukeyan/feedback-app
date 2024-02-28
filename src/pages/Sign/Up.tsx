@@ -34,7 +34,7 @@ const SignUp: React.FC = () => {
     }
 
     const onSubmit = async (values: RegisterParamsType) => {
-        
+
         const data = await dispatch(fetchRegister(values)) as FetchLoginResponse;
         if (data.payload) {
             window.localStorage.setItem('token', data.payload.token)
@@ -44,22 +44,22 @@ const SignUp: React.FC = () => {
     };
 
     const uploadButtonClicklick = () => {
-        if(inputFileRef.current) {
+        if (inputFileRef.current) {
             inputFileRef.current.click()
         }
     };
 
-    const handleFileChange = async(event: ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
         try {
             const formData = new FormData();
-            if(event.target.files) {
+            if (event.target.files) {
                 formData.append('image', event.target.files[0])
             }
-            const {data} = await axios.post('/upload', formData);
+            const { data } = await axios.post('/upload', formData);
             setValue('avatarUrl', data.url)
         } catch (error) {
-                console.warn(error)
-                alert('Uploading failed!')
+            console.warn(error)
+            alert('Uploading failed!')
         }
     }
 
@@ -71,7 +71,29 @@ const SignUp: React.FC = () => {
         <div className={styles.wrapper}>
             <Link to={'/'}><Button className='go_back'>Go Back</Button></Link>
             <div className={styles.sign}>
-                <svg className={styles.logo} width="56" height="56" ><defs><radialGradient cx="103.9%" cy="-10.387%" fx="103.9%" fy="-10.387%" r="166.816%" id="a"><stop stopColor="#E84D70" offset="0%" /><stop stopColor="#A337F6" offset="53.089%" /><stop stopColor="#28A7ED" offset="100%" /></radialGradient></defs><g fill="none" fillRule="evenodd"><circle fill="url(#a)" cx="28" cy="28" r="28" /><path fill="#FFF" fillRule="nonzero" d="M30.343 36v-5.834h5.686v-4.302h-5.686V20h-4.597v5.864H20v4.302h5.746V36z" /></g></svg>
+                <svg className={styles.logo} width="56" height="56">
+                    <defs>
+                        <radialGradient
+                            id="a"
+                            cx="103.9%"
+                            cy="-10.387%"
+                            r="166.816%"
+                            fx="103.9%"
+                            fy="-10.387%"
+                        >
+                            <stop offset="0%"></stop>
+                            <stop offset="53.089%"></stop>
+                            <stop offset="100%"></stop>
+                        </radialGradient>
+                    </defs>
+                    <g fill="none">
+                        <circle cx="28" cy="28" r="28" fill="url(#a)"></circle>
+                        <path
+                            fill="#FFF"
+                            d="M30.343 36v-5.834h5.686v-4.302h-5.686V20h-4.597v5.864H20v4.302h5.746V36z"
+                        ></path>
+                    </g>
+                </svg>
                 <h1>Sign - Up</h1>
                 <form onSubmit={handleSubmit(onSubmit)} action="">
                     <div className={styles.upload}>
@@ -82,7 +104,7 @@ const SignUp: React.FC = () => {
                             </div>
                         </label>
                         <Button onClick={uploadButtonClicklick} className={'upload_button'}>Choose file</Button>
-                        <input onChange={handleFileChange} ref={inputFileRef} type="file" name='upload'/>
+                        <input onChange={handleFileChange} ref={inputFileRef} type="file" name='upload' />
                     </div>
                     <div className={styles.email}>
                         <label htmlFor="fullName">Full name
