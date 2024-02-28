@@ -1,5 +1,5 @@
 .wrapper {
-    width: 540px;
+    max-width: 540px;
     margin: 0 auto;
     padding: 40px 20px;
 
@@ -145,9 +145,31 @@
                         }
                     }
                 }
+
+                @media (max-width: 767px) {
+                    flex-direction: column;
+
+                    button {
+                        width: 100%;
+                        margin-bottom: 10px;
+                    }
+
+                    ;
+
+                    .box {
+                        flex-direction: column;
+                        button {
+                            &:first-child {
+                                margin-right: 0;
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        
+
     }
+
+
 }

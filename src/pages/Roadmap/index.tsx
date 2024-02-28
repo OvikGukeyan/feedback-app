@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../redux/store';
 const Roadmap: React.FC = () => {
     const dispatch = useAppDispatch()
     const { feedbacks } = useSelector(selectFeedbacks);
-    
+
 
     useEffect(() => {
         dispatch(fetchFeedbacks({}))
@@ -37,10 +37,16 @@ const Roadmap: React.FC = () => {
                     <h1>Roadmap</h1>
                 </div>
                 <Link to={'/create'}><Button className='add_button'>+ Add Feedback</Button></Link>
-
             </header>
+            <div className={styles.control_panel}>
+                {Object.keys(sortedFeedbacks).map((key) =>
+                    <div className={styles.button}>
+                        <h3>{sortedFeedbacks[key].name} ({sortedFeedbacks[key].items.length})</h3>
+                    </div>
+                )}
+            </div>
             <div className={styles.content}>
-                {Object.keys(sortedFeedbacks).map((key) => (
+                {Object.keys(sortedFeedbacks).map((key) =>
                     <div key={key} className={styles.box}>
                         <h3>{sortedFeedbacks[key].name} ({sortedFeedbacks[key].items.length})</h3>
                         <p>{sortedFeedbacks[key].description}</p>
@@ -52,7 +58,7 @@ const Roadmap: React.FC = () => {
                         ))}
 
                     </div>
-                ))}
+                )}
 
             </div>
         </div>
