@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Roadmap.module.scss';
 import { Button, RoadmapItem } from '../../components';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../redux/store';
 const Roadmap: React.FC = () => {
     const dispatch = useAppDispatch()
     const { feedbacks } = useSelector(selectFeedbacks);
-
+    const [activeState, setActiveState] = useState('inProgress')
 
     useEffect(() => {
         dispatch(fetchFeedbacks({}))
@@ -30,7 +30,7 @@ const Roadmap: React.FC = () => {
     }
 
     return (
-        <div className={styles.roadmap}>
+        <div className={`${styles.roadmap} ${styles[activeState]}`}>
             <header  >
                 <div className={styles.left_box}>
                     <Link to={'/'}><Button className='go_back_white'>Go Back</Button></Link>
@@ -40,7 +40,7 @@ const Roadmap: React.FC = () => {
             </header>
             <div className={styles.control_panel}>
                 {Object.keys(sortedFeedbacks).map((key) =>
-                    <div className={styles.button}>
+                    <div onClick={() => setActiveState(key)} className={`${styles.button} ${styles[key]}`}>
                         <h3>{sortedFeedbacks[key].name} ({sortedFeedbacks[key].items.length})</h3>
                     </div>
                 )}
