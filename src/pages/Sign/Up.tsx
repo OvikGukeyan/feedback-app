@@ -3,10 +3,12 @@ import styles from './Sign.module.scss';
 import { Button } from '../../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { fetchRegister, RegisterParamsType, selectIsAuth } from '../../redux/slices/auth/authSlice';
+import { selectIsAuth } from '../../redux/slices/auth/authSlice';
 import { useAppDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import axios from '../../axios';
+import { RegisterParamsType } from '../../redux/slices/auth/types';
+import { fetchRegister } from '../../redux/slices/auth/utils';
 
 const SignUp: React.FC = () => {
     const dispatch = useAppDispatch();

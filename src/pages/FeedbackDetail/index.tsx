@@ -5,9 +5,10 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../redux/store';
 
 import { Button, FullComment, Item } from '../../components';
-import { fetchOneFeedback, postComment, postReply, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import ItemLoader from '../../components/FeedbackItem/FeedbackItemLoader';
 import { selectIsAuth } from '../../redux/slices/auth/authSlice';
+import { fetchOneFeedback, postComment, postReply } from '../../redux/slices/feedbacks/utils';
 
 
 const FeedbackDetail: React.FC = () => {
@@ -21,7 +22,7 @@ const FeedbackDetail: React.FC = () => {
     const [replyText, setReplyText] = useState('');
     const [currentReplyId, setCurrentReplyId] = useState('');
 
-    const isEditable = data?._id === currentFeedback?.user._id;
+    const isEditable = data && (data?._id === currentFeedback?.user._id);
     const comments = currentFeedback?.comments;
 
     
@@ -64,7 +65,6 @@ const FeedbackDetail: React.FC = () => {
         setReplyText('');
         setCurrentReplyId('');
     };
-
 
 
 

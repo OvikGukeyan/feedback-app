@@ -1,7 +1,8 @@
 import { upvoteMinus, upvotePlus } from "./redux/slices/feedbacks/feedbacksSlice";
-import { UserDataType, addUpvoted } from "./redux/slices/auth/authSlice";
+import { addUpvoted } from "./redux/slices/auth/authSlice";
 import { FeedbackItem } from "./redux/slices/feedbacks/types";
 import axios from "./axios";
+import { UserDataType } from "./redux/slices/auth/types";
 
 
 export const handleUpvote = async (dispatch: any, item: FeedbackItem, userData: UserDataType | null) => {

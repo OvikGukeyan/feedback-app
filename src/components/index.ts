@@ -5,6 +5,8 @@ export {default as PopUp} from './PopUp';
 export {default as FullComment} from './Comment';
 export {default as Reply} from './Comment/Reply';
 export {default as RoadmapItem} from './RoadmapItem';
+export {default as EmptyBoard} from './EmptyBoard';
+
 
 
 

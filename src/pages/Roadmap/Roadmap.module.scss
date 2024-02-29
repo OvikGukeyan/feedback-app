@@ -112,40 +112,39 @@
                     }
             }
         }
+
+        &.planned {
+            .content {
+                transform: translateX(0);
+        
+            }
+            .button.planned {
+                border-bottom: 4px solid #F49F85;
+            }
+            
+        }
+
+        &.inProgress {
+            .content {
+                transform: translateX(-33.3%);
+        
+            }
+        
+            .button.inProgress {
+                border-bottom: 4px solid #AD1FEA;
+            }
+        
+        }
+
+        &.live {
+            .content {
+                transform: translateX(-66.6%);
+            }
+            .button.live {
+                border-bottom: 4px solid #62BCFA;
+            }
+        
+        }
     }
 }
 
-@media (max-width: 767px) {
-
-.planned {
-    .content {
-        transform: translateX(0);
-
-    }
-    .button.planned {
-        border-bottom: 4px solid #F49F85;
-    }
-    
-}
-.inProgress {
-    .content {
-        transform: translateX(-33.3%);
-
-    }
-
-    .button.inProgress {
-        border-bottom: 4px solid #AD1FEA;
-    }
-
-}
-
-.live {
-    .content {
-        transform: translateX(-66.6%);
-    }
-    .button.live {
-        border-bottom: 4px solid #62BCFA;
-    }
-
-}
-}

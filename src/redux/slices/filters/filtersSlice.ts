@@ -1,22 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { FilterSliceState } from "./types";
 
-export type SortByType = {
-    name: string
-    type: string
-    order: string
-}
-
-export type FilterType = {
-    category: string | null
-    status: string | null
-}
-
-interface FilterSliceState {
-    filter: FilterType
-    sortBy: SortByType 
-    searchValue: string
-}
 
 const initialState: FilterSliceState = {
     filter: {

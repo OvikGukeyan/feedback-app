@@ -7,32 +7,31 @@
             margin-left: 20px;
             position: relative;
             cursor: pointer;
-    
+
             p {
                 font-size: 14px;
                 font-weight: 400;
                 color: #fff;
-    
+
                 span {
                     font-size: 14px;
                     font-weight: 700;
                     color: #fff;
-    
+
                 }
-    
-    
+
             }
-    
+
             svg {
                 margin-left: 5px;
                 margin-top: 3px;
                 stroke: #fff
             }
-    
-        @media (max-width: 767px) {
-            margin-left: 0;
-        }
-    
+
+            @media (max-width: 767px) {
+                margin-left: 0;
+            }
+
         }
     }
 
@@ -63,48 +62,48 @@
 
 
 
-.pop_Up {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 1px 2px 5px #979797;
-    z-index: 2;
+    .pop_Up {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 1px 2px 5px #979797;
+        z-index: 2;
 
-    ul {
-        margin: 0;
-        padding: 0;
+        ul {
+            margin: 0;
+            padding: 0;
 
-        li {
-            list-style-type: none;
-            height: 50px;
-            border-bottom: 1px solid #d0d0d1;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: #647196;
-            cursor: pointer;
+            li {
+                list-style-type: none;
+                height: 50px;
+                border-bottom: 1px solid #d0d0d1;
+                padding: 0 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: #647196;
+                cursor: pointer;
 
-            &:last-child {
-                border-bottom: none;
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                &:hover {
+                    color: #AD1FEA;
+                }
+
+
             }
 
-            &:hover {
-                color: #AD1FEA;
-            }
-
-            
-        }
-
-        .active {
-            &::after {
-                content: url(../../../public/assets/shared/icon-check.svg);
+            .active {
+                &::after {
+                    content: url(../../../public/assets/shared/icon-check.svg);
+                }
             }
         }
     }
-}

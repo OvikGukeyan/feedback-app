@@ -4,9 +4,10 @@ import styles from './Comment.module.scss';
 import { Button, Reply } from '..';
 import { Comment } from '../../redux/slices/feedbacks/types';
 import { useSelector } from 'react-redux';
-import { removeComment, removeReply, selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
+import { selectFeedbacks } from '../../redux/slices/feedbacks/feedbacksSlice';
 import { useAppDispatch } from '../../redux/store';
 import { selectIsAuth } from '../../redux/slices/auth/authSlice';
+import { removeComment, removeReply } from '../../redux/slices/feedbacks/utils';
 
 type FullCommentType = {
     comment: Comment

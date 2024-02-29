@@ -1,5 +1,5 @@
-import { UserDataType } from "../auth/authSlice"
-import { FilterType, SortByType } from "../filters/filtersSlice"
+import { UserDataType } from "../auth/types"
+import { FilterType, SortByType } from "../filters/types"
 
 export type FetchFeedbacksOptionsType = {
     sortBy?: SortByType
@@ -65,7 +65,7 @@ export type FeedbackItem = {
 
 
 export interface FeedbacksSliceState {
-    feedbacks: FeedbackItem[]
+    feedbacks: FeedbackItem[] | null
     currentFeedback: FeedbackItem | null
     isLoading: boolean
     loadingRejected: boolean

@@ -3,7 +3,7 @@ import './App.css';
 import { SignUp, SignIn, CreateFeedback, FeedbackDetail, Home, Roadmap } from './pages';
 import { Route, Routes } from 'react-router-dom';
 import { useAppDispatch } from './redux/store';
-import { fetchAuthMe } from './redux/slices/auth/authSlice';
+import { fetchAuthMe } from './redux/slices/auth/utils';
 
 
 const  App:React.FC = () => {

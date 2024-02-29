@@ -34,6 +34,10 @@
             }
         }
 
+        svg {
+            display: none;
+        }
+
     }
 
     .overlay {
@@ -152,6 +156,10 @@
 
             &::before {
                 display: none;
+            }
+
+            svg {
+                display: block;
             }
         }
 
