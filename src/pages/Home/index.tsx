@@ -21,9 +21,9 @@ const Home: React.FC = () => {
   const { feedbacks, isLoading, loadingRejected } = useSelector(selectFeedbacks);
   const { sortBy, filter } = useSelector(selectFilters);
   const statuses = [
-    { name: 'Planned', count: feedbacks ? feedbacks.filter((item) => item.status === 'Planned').length: 0, color: '#F49F85' },
-    { name: 'In Progress', count: feedbacks ? feedbacks.filter((item) => item.status === 'In Progress').length: 0, color: '#AD1FEA' },
-    { name: 'Live', count: feedbacks ? feedbacks.filter((item) => item.status === 'Live').length: 0, color: '#62BCFA' }
+    { name: 'Planned', count: feedbacks ? feedbacks.filter((item) => item.status === 'Planned').length : 0, color: '#F49F85' },
+    { name: 'In Progress', count: feedbacks ? feedbacks.filter((item) => item.status === 'In Progress').length : 0, color: '#AD1FEA' },
+    { name: 'Live', count: feedbacks ? feedbacks.filter((item) => item.status === 'Live').length : 0, color: '#62BCFA' }
   ];
 
   const sortList = [
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
     const obj = sortList.find((i) => i.name === item);
     dispatch(setSortBy(obj))
   };
-  const suggestions = feedbacks ? feedbacks.filter(item => item.status === 'Suggestion'): null;
+  const suggestions = feedbacks ? feedbacks.filter(item => item.status === 'Suggestion') : null;
 
   return (
     <div className={styles.home}>
@@ -66,7 +66,7 @@ const Home: React.FC = () => {
         <header  >
           <div className={styles.suggestions}>
             <img src="./assets/suggestions/icon-suggestions.svg" alt="" />
-            <span> {suggestions ? suggestions.length: 0} Suggestions</span>
+            <span> {suggestions ? suggestions.length : 0} Suggestions</span>
           </div>
 
           <PopUp active={sortBy.name} handleChooseItem={handleChooseSort} list={sortList} className='sort'>
@@ -89,18 +89,21 @@ const Home: React.FC = () => {
 
             </div>}
         </header>
-        {isLoading ?
-          [...Array(2)].map((i, ind) => (
-            <ItemLoader key={ind} />
-          )) :
 
-          suggestions && suggestions.map((item) => (
-            <div key={item._id} className={styles.items}>
-              <Item handleFeedbackCliick={handleFeedbackCliick} item={item} />
-            </div>
-          ))
-        }
-        {suggestions && suggestions?.length < 1 && <EmptyBoard />}
+
+        <div className={styles.items}>
+          {isLoading ?
+            [...Array(2)].map((i, ind) => (
+              <ItemLoader key={ind} />
+            )) :
+            suggestions && suggestions.map((item) => (
+              <Item key={item._id} handleFeedbackCliick={handleFeedbackCliick} item={item} />
+            ))
+          }
+
+          {suggestions && suggestions?.length < 1 && <EmptyBoard />}
+        </div>
+
       </div>
     </div>
 

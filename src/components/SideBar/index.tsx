@@ -58,8 +58,8 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
                 <aside ref={sideBarRef} className={styles.side_bar}>
 
                     <div className={styles.categorys}>
-                        <Button onClick={() => handleChooseCategory(null)} className={!filter.status ? 'category_button_active' : 'category_button'}>ALL</Button>
-                        {categorys.map((i) => (<Button key={i} onClick={() => handleChooseCategory(i)} className={filter.status === i ? 'category_button_active' : 'category_button'}>{i}</Button>))}
+                        <Button active={!filter.status} onClick={() => handleChooseCategory(null)} className='category_button'>ALL</Button>
+                        {categorys.map((i) => (<Button active={filter.status === i} key={i} onClick={() => handleChooseCategory(i)} className='category_button'>{i}</Button>))}
                     </div>
                     <div className={styles.roadmap}>
                         <div className={styles.title}>

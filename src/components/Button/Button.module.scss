@@ -31,8 +31,7 @@
 
 
 
-.category_button,
-.category_button_active {
+.category_button {
     background-color: #F2F2F2;
     color: #4661E6;
     font-size: 13px;
@@ -45,14 +44,6 @@
     }
 }
 
-.category_button_active {
-    background-color: #4661E6;
-    color: #fff;
-
-    &:hover {
-        background-color: #4661E6;
-    }
-}
 
 .view_roadmap {
 
@@ -70,8 +61,7 @@
 }
 
 .upvotes,
-.upvotes_goriz,
-.upvotes_active {
+.upvotes_goriz {
     margin-right: 30px;
     background-color: #F2F2F2;
     font-size: 13px;
@@ -105,13 +95,13 @@
     &:hover {
         background-color: #4661E6;
     }
+}
 
+.upvotes, .upvotes_goriz.active {
     &::before {
         content: url(../../../public/assets/shared/icon-arrow-down.svg);
     }
 }
-
-
 
 .upvotes_goriz {
     flex-direction: row;
@@ -203,6 +193,7 @@
     font-weight: 600;
     color: #D73737;
     margin-right: 20px;
+    background-color: #fff;
 
     &:hover {
         color: #E98888;

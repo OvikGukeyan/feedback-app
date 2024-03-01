@@ -25,9 +25,9 @@ const Roadmap: React.FC = () => {
         }
     }
     const sortedFeedbacks: sortedFeedbacksTypes = {
-        planned: { name: 'Planned', description: 'Ideas prioritized for research', items: feedbacks ? feedbacks.filter(feedback => feedback.status === 'Planned'): [] },
-        inProgress: { name: 'In Progress', description: 'Currently being developed', items: feedbacks ? feedbacks.filter(feedback => feedback.status === 'In Progress'): [] },
-        live: { name: 'Live', description: 'Released features', items: feedbacks ? feedbacks.filter(feedback => feedback.status === 'Live'): [] },
+        planned: { name: 'Planned', description: 'Ideas prioritized for research', items: feedbacks ? feedbacks.filter(feedback => feedback.status === 'Planned') : [] },
+        inProgress: { name: 'In Progress', description: 'Currently being developed', items: feedbacks ? feedbacks.filter(feedback => feedback.status === 'In Progress') : [] },
+        live: { name: 'Live', description: 'Released features', items: feedbacks ? feedbacks.filter(feedback => feedback.status === 'Live') : [] },
     }
     const isEmpty = Object.values(sortedFeedbacks).flatMap((obj) => obj.items).length < 1;
 
@@ -48,21 +48,21 @@ const Roadmap: React.FC = () => {
                 )}
             </div>
             <div className={styles.content}>
-                {(isEmpty && !isLoading) ?
-                    <EmptyBoard /> :
-                    Object.keys(sortedFeedbacks).map((key) =>
-                        <div key={key} className={styles.box}>
-                            <h3>{sortedFeedbacks[key].name} ({sortedFeedbacks[key].items.length})</h3>
-                            <p>{sortedFeedbacks[key].description}</p>
-                            {sortedFeedbacks[key].items.map(feedbackItem => (
-                                <RoadmapItem
-                                    feedbackItem={feedbackItem}
-                                    styleKey={key}
-                                />
-                            ))}
+                {Object.keys(sortedFeedbacks).map((key) =>
+                    <div key={key} className={styles.box}>
+                        <h3>{sortedFeedbacks[key].name} ({sortedFeedbacks[key].items.length})</h3>
+                        <p>{sortedFeedbacks[key].description}</p>
+                        {sortedFeedbacks[key].items.length > 0 ?
+                        sortedFeedbacks[key].items.map(feedbackItem => (
+                            <RoadmapItem
+                                feedbackItem={feedbackItem}
+                                styleKey={key}
+                            />
+                        )):
+                        <EmptyBoard/>}
 
-                        </div>
-                    )}
+                    </div>
+                )}
 
             </div>
         </div>

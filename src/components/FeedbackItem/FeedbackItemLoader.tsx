@@ -7,7 +7,7 @@ const ItemLoader: React.FC = () => {
   const location = useLocation();
   const display = window.innerWidth;
   let width = 757;
-  let hight = 183;
+  let hight = 160;
   if (location.pathname.includes('detail') ) {
     width = 730
   } else 
@@ -30,8 +30,9 @@ const ItemLoader: React.FC = () => {
       viewBox={`0 0 ${width} ${hight}`}
       backgroundColor="#ffffff"
       foregroundColor="#e0e0e0"
+      style={{marginTop: '25px'}}
     >
-      <rect x="" y="25" rx="10" ry="10" width={width} height={hight} />
+      <rect x="" y="" rx="10" ry="10" width={width} height={hight} />
     </ContentLoader>
   )
 }
