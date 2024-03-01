@@ -61,7 +61,7 @@ const CreateFeedback: React.FC = () => {
                 console.warn(error)
                 alert('Failed to delete feedback!')
             })
-
+            navigate('/')
 
     }
     type ParamsType = {

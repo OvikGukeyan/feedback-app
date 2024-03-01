@@ -52,7 +52,7 @@ const FullComment: React.FC<FullCommentType> = ({ comment, setReplyText, setCurr
         <div className={styles.comment}>
             <div className={styles.comment_head}>
                 <div className={styles.img}>
-                    <img src={`http://localhost:4444${comment.user?.avatarUrl}`} alt="" />
+                    <img src={`${process.env.REACT_APP_API_URL}${comment.user?.avatarUrl}`} alt="" />
                 </div>
                 <div className={styles.names}>
                     <h4>{comment.user.fullName}</h4>

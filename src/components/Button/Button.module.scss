@@ -97,7 +97,7 @@
     }
 }
 
-.upvotes, .upvotes_goriz.active {
+.upvotes.active, .upvotes_goriz.active {
     &::before {
         content: url(../../../public/assets/shared/icon-arrow-down.svg);
     }

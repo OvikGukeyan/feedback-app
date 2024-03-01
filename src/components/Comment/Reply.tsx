@@ -24,7 +24,7 @@ const Reply: React.FC<ReplyComponentType> = ({handleRemoveReply, replyText, curr
         <div className={`${styles.comment} ${styles.reply}`}>
             <div className={styles.comment_head}>
                 <div className={styles.img}>
-                    <img src={`http://localhost:4444${item.user.avatarUrl}`} alt="" />
+                    <img src={`${process.env.REACT_APP_API_URL}${item.user.avatarUrl}`} alt="" />
                 </div>
                 <div className={styles.names}>
                     <h4>{item.user.fullName}</h4>

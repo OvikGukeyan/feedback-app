@@ -30,7 +30,7 @@ const ItemLoader: React.FC = () => {
       viewBox={`0 0 ${width} ${hight}`}
       backgroundColor="#ffffff"
       foregroundColor="#e0e0e0"
-      style={{marginTop: '25px'}}
+      style={{marginTop: '25px', width:'100%'}}
     >
       <rect x="" y="" rx="10" ry="10" width={width} height={hight} />
     </ContentLoader>
