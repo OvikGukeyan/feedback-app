@@ -41,25 +41,26 @@ const Roadmap: React.FC = () => {
                 <Link to={'/create'}><Button className='add_button'>+ Add Feedback</Button></Link>
             </header>
             <div className={styles.control_panel}>
-                {Object.keys(sortedFeedbacks).map((key) =>
-                    <div onClick={() => setActiveState(key)} className={`${styles.button} ${styles[key]}`}>
+                {Object.keys(sortedFeedbacks).map((key, ind) =>
+                    <div key={`${key}${ind}`} onClick={() => setActiveState(key)} className={`${styles.button} ${styles[key]}`}>
                         <h3>{sortedFeedbacks[key].name} ({sortedFeedbacks[key].items.length})</h3>
                     </div>
                 )}
             </div>
             <div className={styles.content}>
-                {Object.keys(sortedFeedbacks).map((key) =>
-                    <div key={key} className={styles.box}>
+                {Object.keys(sortedFeedbacks).map((key, ind) =>
+                    <div key={`${key}${ind}`} className={styles.box}>
                         <h3>{sortedFeedbacks[key].name} ({sortedFeedbacks[key].items.length})</h3>
                         <p>{sortedFeedbacks[key].description}</p>
                         {sortedFeedbacks[key].items.length > 0 ?
-                        sortedFeedbacks[key].items.map(feedbackItem => (
-                            <RoadmapItem
-                                feedbackItem={feedbackItem}
-                                styleKey={key}
-                            />
-                        )):
-                        <EmptyBoard/>}
+                            sortedFeedbacks[key].items.map(feedbackItem => (
+                                <RoadmapItem
+                                    key={feedbackItem._id}
+                                    feedbackItem={feedbackItem}
+                                    styleKey={key}
+                                />
+                            )) :
+                            <EmptyBoard />}
 
                     </div>
                 )}
