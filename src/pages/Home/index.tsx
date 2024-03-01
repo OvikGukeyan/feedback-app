@@ -101,7 +101,7 @@ const Home: React.FC = () => {
             ))
           }
 
-          {suggestions && suggestions?.length < 1 && <EmptyBoard />}
+          {!isLoading && suggestions && suggestions?.length < 1 && <EmptyBoard />}
         </div>
 
       </div>
