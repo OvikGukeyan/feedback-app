@@ -33,76 +33,82 @@
             }
 
         }
-    }
 
-    .category {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 50px;
-        background-color: #F7F8FD;
-        width: 100%;
-        border-radius: 10px;
-        padding: 20px;
-        position: relative;
-        cursor: pointer;
+        .category {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            background-color: #F7F8FD;
+            width: 100%;
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            cursor: pointer;
 
 
-        svg {
-            stroke: #4661E6;
+            svg {
+                stroke: #4661E6;
+            }
         }
-    }
 
+        .login {
+            height: 30px;
+            width: 30px;
+            margin-left: 15px;
+            position: relative;
 
-
-
-
-
-
-
-
-
-    .pop_Up {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 1px 2px 5px #979797;
-        z-index: 2;
-
-        ul {
-            margin: 0;
-            padding: 0;
-
-            li {
-                list-style-type: none;
-                height: 50px;
-                border-bottom: 1px solid #d0d0d1;
-                padding: 0 20px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                color: #647196;
-                cursor: pointer;
-
-                &:last-child {
-                    border-bottom: none;
-                }
-
-                &:hover {
-                    color: #AD1FEA;
-                }
-
-
+            .pop_Up {
+                width: 150px;
+                right: 0;
+                left: auto;
             }
 
-            .active {
-                &::after {
-                    content: url(../../../public/assets/shared/icon-check.svg);
+        }
+
+
+        .pop_Up {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 1px 2px 5px #979797;
+            z-index: 2;
+
+            ul {
+                margin: 0;
+                padding: 0;
+
+                li {
+                    list-style-type: none;
+                    height: 50px;
+                    border-bottom: 1px solid #d0d0d1;
+                    padding: 0 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    color: #647196;
+                    cursor: pointer;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    &:hover {
+                        color: #AD1FEA;
+                    }
+
+
+                }
+
+                .active {
+                    &::after {
+                        content: url(../../../public/assets/shared/icon-check.svg);
+                    }
                 }
             }
         }

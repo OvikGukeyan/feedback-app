@@ -10,7 +10,7 @@ type PopUpTypes = {
         order: string;
     }[] | { name: string }[]
     handleChooseItem: (item: string) => void
-    active: string
+    active?: string
 }
 const PopUp: React.FC<PopUpTypes> = ({ children, className, list, handleChooseItem, active }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);

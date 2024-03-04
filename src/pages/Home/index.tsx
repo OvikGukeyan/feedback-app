@@ -17,7 +17,8 @@ const Home: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = Boolean(useSelector(selectIsAuth).data);
+  const { data } = useSelector(selectIsAuth)
+  const isAuth = Boolean(data);
   const { feedbacks, isLoading, loadingRejected } = useSelector(selectFeedbacks);
   const { sortBy, filter } = useSelector(selectFilters);
   const statuses = [
@@ -33,24 +34,29 @@ const Home: React.FC = () => {
     { name: 'Least Comments', type: 'comments', order: 'asc' },
   ];
 
-
+  const loginList = isAuth ?
+    [{ name: 'Sign Out' }] :
+    [{ name: 'Sign In' }, { name: 'Sign Up' }]
 
   useEffect(() => {
     dispatch(fetchFeedbacks({ sortBy, filter }))
   }, [sortBy, filter]);
 
-
+  const handleLogin = (item: string) => {
+    if (item === 'Sign Out') {
+      dispatch(signOut());
+      window.localStorage.removeItem('token')
+    }else if(item === 'Sign In') {
+      navigate('/login')
+    }else if (item === 'Sign Up') {
+      navigate('register')
+    }
+  }
 
   const handleFeedbackCliick = (id: string) => {
     navigate(`/detail/${id}`);
     window.scroll(0, 0);
   };
-
-  const handleSignOut = () => {
-    dispatch(signOut());
-    window.localStorage.removeItem('token')
-  };
-
 
 
   const handleChooseSort = (item: string) => {
@@ -73,21 +79,15 @@ const Home: React.FC = () => {
             <p className={styles.sort}>Sort by: <span>{sortBy.name}</span></p>
           </PopUp>
 
-          {isAuth ?
-            <div className={styles.buttons_box}>
-              <Link to={'/create'}><Button className='add_button'>+ Add Feedback</Button></Link>
-              <Button onClick={handleSignOut} className='sign_out'>Sign Out</Button>
+          {isAuth &&
+            <Link to={'/create'}><Button className='add_button'>+ Add Feedback</Button></Link>
+          }
+          <div>
+            <PopUp handleChooseItem={handleLogin} list={loginList} className='login'>
+              <img className={styles.avatar} src={data ? `http://localhost:4444${data?.avatarUrl}`: 'assets/user-images/default_avatar.png'} alt="" />
+            </PopUp>
+          </div>
 
-
-
-            </div>
-            :
-            <div className={styles.buttons_box}>
-              <Link to={'/login'}><Button className='sign_in'>Sign In</Button></Link>
-              <Link to={'/register'}><Button className='sign_up'>Sign Up</Button></Link>
-
-
-            </div>}
         </header>
 
 

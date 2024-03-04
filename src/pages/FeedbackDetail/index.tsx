@@ -81,13 +81,13 @@ const FeedbackDetail: React.FC = () => {
             <div className={styles.comments}>
                 {currentFeedback ? <h2>{currentFeedback.commentsCount} Comments</h2> : <h2> This feedback has no comments yet </h2>}
                 {comments &&
-                    comments.map((item, ind) => (
+                    comments.map((item) => (
                         <FullComment
                             replyText={replyText}
                             currentReplyId={currentReplyId}
                             setCurrentReplyId={setCurrentReplyId}
                             setReplyText={setReplyText}
-                            key={ind}
+                            key={item._id}
                             comment={item}
                             handleSubmitReply={handleSubmitReply} />
                     ))
