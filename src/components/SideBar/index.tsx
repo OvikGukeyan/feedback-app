@@ -25,6 +25,7 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
         if (sideBarRef.current) {
             if (!sideBarRef.current.contains(e.target as Node)) {
                 setIsSideBar(false);
+                document.body.style.overflow = '';
             }
         }
     }
@@ -33,6 +34,12 @@ const SideBar: React.FC<SideBarTypes> = ({ statuses }) => {
 
     const handleHamburgerClick = () => {
         setIsSideBar(!isSideBar)
+
+        if (!isSideBar) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     }
 
     const handleChooseCategory = (cat: string | null) => {
