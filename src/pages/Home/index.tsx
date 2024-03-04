@@ -84,7 +84,7 @@ const Home: React.FC = () => {
           }
           <div>
             <PopUp handleChooseItem={handleLogin} list={loginList} className='login'>
-              <img className={styles.avatar} src={data ? `http://localhost:4444${data?.avatarUrl}`: 'assets/user-images/default_avatar.png'} alt="" />
+              <img className={styles.avatar} src={data ? `${process.env.REACT_APP_API_URL}${data?.avatarUrl}`: 'assets/user-images/default_avatar.png'} alt="" />
             </PopUp>
           </div>
 
