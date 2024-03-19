@@ -12,7 +12,6 @@ import { fetchLogin } from '../../redux/slices/auth/utils';
 const SignIn: React.FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const isAuth = Boolean(useSelector(selectIsAuth).data);
     const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm({
         defaultValues: {
             email: 'test@gmail.com',
@@ -41,9 +40,7 @@ const SignIn: React.FC = () => {
 
 
 
-    if (isAuth) {
-        navigate('/')
-    }
+  
 
     return (
         <div className={styles.wrapper}>

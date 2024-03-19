@@ -4,8 +4,7 @@ import { Button, PopUp } from '../../components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from '../../axios';
-import { useSelector } from 'react-redux';
-import { selectIsAuth } from '../../redux/slices/auth/authSlice';
+
 
 
 
@@ -16,7 +15,6 @@ const CreateFeedback: React.FC = () => {
     const navigate = useNavigate();
     const params = useParams();
     const id = params.id ? params.id : '';
-    const { data } = useSelector(selectIsAuth);
 
 
     const { register, handleSubmit, formState: { errors, isValid }, setValue, watch, trigger, control } = useForm({
@@ -97,9 +95,7 @@ const CreateFeedback: React.FC = () => {
                 })
         };
 
-    // if (!data) {
-    //     navigate('/')
-    // }
+    
 
     return (
         <div className={styles.wrapper}>

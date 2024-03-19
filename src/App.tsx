@@ -10,9 +10,9 @@ import { selectIsAuth } from './redux/slices/auth/authSlice';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { data } = useSelector(selectIsAuth);
-  const isAuth = Boolean(data)
+  
 
+  const isAuth = Boolean(useSelector(selectIsAuth).data);
 
   useEffect(() => {
     dispatch(fetchAuthMe());
