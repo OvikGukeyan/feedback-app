@@ -152,8 +152,7 @@ const CreateFeedback: React.FC = () => {
                         <label htmlFor="description">Feedback Detail <span className={errors.description && styles.instruction}>Include any specific comments on what should be improved, added, etc. At least five characters.</span></label>
                         <textarea className={errors.description && styles.input_error} {...register('description', {
                             required: 'Enter description',
-                            minLength: 5,
-                            maxLength: 255
+                            minLength: 5
                         },)} />
                     </div>
                     <div className={styles.buttons}>
