@@ -17,7 +17,7 @@ const Home: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { data } = useSelector(selectIsAuth)
+  const { data } = useSelector(selectIsAuth);
   const isAuth = Boolean(data);
   const { feedbacks, isLoading, loadingRejected } = useSelector(selectFeedbacks);
   const { sortBy, filter } = useSelector(selectFilters);
